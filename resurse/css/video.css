@@ -1,0 +1,32 @@
+.container-video-local{
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    overflow: hidden;
+}
+
+.video-booknest{
+    display: block;
+    width: 80%;
+    min-width: min(18rem, 100%);
+    max-width: 52rem;
+    height: auto;
+    border: 0.12rem solid var(--culoare-contur);
+    border-radius: var(--raza-colt);
+}
+
+.video-booknest::cue{
+    background-color: var(--culoare-deschisa);
+    color: var(--culoare-text);
+    text-align: center;
+}
+
+.video-booknest::cue(i){
+    font-style: italic;
+}
+
+@media screen and (max-width: 768px){
+    .video-booknest{
+        width: 100%;
+    }
+}

@@ -863,6 +863,12 @@ time{
         --latime-max-pdf: 100%;
         --latime-link-top: 3.2rem;
         --inaltime-link-top: 3.8rem;
+        --culoare-link-vizitat: var(--culoare-inchisa);
+        --culoare-simbol-link-extern: var(--culoare-principala);
+        --culoare-simbol-link-extern-hover: var(--culoare-secundara);
+        --culoare-pata-link: var(--culoare-highlight);
+        --culoare-border-link-activ: var(--culoare-accent);
+        --culoare-transparenta: transparent;
     }
 
     .container-tabel{

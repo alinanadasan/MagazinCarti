@@ -1,0 +1,49 @@
+main a,
+#subsol a{
+    border: 0.12rem solid var(--culoare-transparenta);
+}
+
+main a:visited,
+#subsol a:visited{
+    color: var(--culoare-link-vizitat);
+}
+
+a[href^="http"]::before{
+    content: "⮳";
+    display: inline-block;
+    margin-right: 0.25em;
+    color: var(--culoare-simbol-link-extern);
+    font-size: 1.5em;
+    line-height: 0;
+    transition: color 0.35s ease;
+}
+
+a[href^="http"]:hover::before{
+    color: var(--culoare-simbol-link-extern-hover);
+}
+
+main a{
+    background-image:
+        radial-gradient(
+            circle,
+            var(--culoare-pata-link) 0%,
+            var(--culoare-pata-link) 40%,
+            var(--culoare-transparenta) 80%,
+            var(--culoare-transparenta) 100%
+        );
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: 0 0;
+    transition:
+        background-size 0.4s ease,
+        color 0.35s ease,
+        border-color 0.15s ease;
+}
+
+main a:hover{
+    background-size: 100% 100%;
+}
+
+main a:active{
+    border-color: var(--culoare-border-link-activ);
+}
