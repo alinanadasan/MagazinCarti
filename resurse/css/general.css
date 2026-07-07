@@ -7,7 +7,7 @@ html{
 body{
     --culoare-fundal: #faf1e8;
     --culoare-suprafata: #fffaf5;
-    --culoare-principala: #b45a1b;
+    --culoare-principala: #d35400;
     --culoare-accent: #8f4620;
     --culoare-inchisa: #5a3727;
     --culoare-deschisa: #fffaf5;
@@ -15,6 +15,19 @@ body{
     --culoare-text: #2c1e16;
     --culoare-contur: #c8a78a;
     --culoare-highlight: #f4e5d4;
+    --culoare-footer-secundara: #6a432f;
+    --culoare-umbra-neagra-18: rgba(0, 0, 0, 0.18);
+    --culoare-umbra-inchisa-08: rgba(90, 55, 39, 0.08);
+    --culoare-umbra-inchisa-12: rgba(90, 55, 39, 0.12);
+    --culoare-umbra-inchisa-16: rgba(90, 55, 39, 0.16);
+    --culoare-contur-opac-95: rgba(200, 167, 138, 0.95);
+    --culoare-deschisa-45: rgba(255, 250, 245, 0.45);
+    --culoare-deschisa-65: rgba(255, 250, 245, 0.65);
+    --culoare-deschisa-92: rgba(255, 250, 245, 0.92);
+    --culoare-deschisa-95: rgba(255, 250, 245, 0.95);
+    --culoare-highlight-65: rgba(244, 229, 212, 0.65);
+    --culoare-principala-05: rgba(211, 84, 0, 0.05);
+    --culoare-accent-03: rgba(143, 70, 32, 0.03);
     --culoare-text-coloana-impara: var(--culoare-accent);
     --culoare-text-coloana-para: var(--culoare-inchisa);
     --culoare-hover-rand: var(--culoare-principala);
@@ -24,6 +37,25 @@ body{
     --culoare-formula-secundara: var(--culoare-principala);
     --culoare-formula-operator: var(--culoare-inchisa);
     --culoare-formula-constanta: var(--culoare-secundara);
+    --culoare-bordura-link-top: var(--culoare-accent);
+    --culoare-link-top: var(--culoare-highlight);
+    --culoare-link-top-hover: var(--culoare-principala);
+    --culoare-sageata-link-top: var(--culoare-inchisa);
+    --culoare-sageata-link-top-hover: var(--culoare-deschisa);
+    --culoare-tooltip-link-top: var(--culoare-inchisa);
+    --culoare-text-tooltip-link-top: var(--culoare-deschisa);
+    --culoare-meniu-fundal: var(--culoare-deschisa);
+    --culoare-meniu-text: var(--culoare-accent);
+    --culoare-meniu-hover: var(--culoare-principala);
+    --culoare-submeniu-fundal: var(--culoare-highlight);
+    --culoare-submeniu-text: var(--culoare-text);
+    --culoare-bara-hamburger: var(--culoare-deschisa);
+    --culoare-bara-hamburger-intermediar: var(--culoare-secundara);
+    --culoare-masca-meniu: #000000;
+    --culoare-transparenta: transparent;
+    --culoare-print-negru: #000000;
+    --culoare-print-fundal: #ffffff;
+    --culoare-watermark-print: rgba(0, 0, 0, 0.3);
 
     --spatiere-pagina: 5rem;
     --spatiere-pagina-mediu: 2.5rem;
@@ -38,7 +70,7 @@ body{
     --padding-zona-mic: 0.9rem;
 
     --raza-colt: 1rem;
-    --umbra-card: 0 0.45rem 1rem rgba(90, 55, 39, 0.12);
+    --umbra-card: 0 0.45rem 1rem var(--culoare-umbra-inchisa-12);
 
     --latime-media: 100%;
     --latime-max-imagine: 48rem;
@@ -47,6 +79,8 @@ body{
     --latime-min-video: 16rem;
     --latime-max-pdf: 58rem;
     --latime-min-pdf: 16rem;
+    --latime-link-top: 4rem;
+    --inaltime-link-top: 4.8rem;
 
     margin: 0;
     background-color: var(--culoare-fundal);
@@ -75,31 +109,19 @@ object{
 a{
     color: var(--culoare-accent);
     text-decoration: none;
-    transition: color 0.3s ease, transform 0.3s ease;
 }
 
 a:hover{
     color: var(--culoare-principala);
     text-decoration: underline;
 }
+
 .icon-static{
     margin-right: 0.45rem;
     color: var(--culoare-principala);
     display: inline-block;
-    animation: bounceBell 1.6s infinite ease-in-out;
-    transform-origin: center bottom;
 }
-@keyframes bounceBell{
-    0%, 20%, 50%, 80%, 100%{
-        transform: translateY(0);
-    }
-    35%{
-        transform: translateY(-0.28rem);
-    }
-    60%{
-        transform: translateY(-0.14rem);
-    }
-}
+
 .icon-animat{
     margin-right: 0.45rem;
     color: var(--culoare-highlight);
@@ -118,6 +140,7 @@ a:hover{
         transform: scale(1) rotate(0deg);
     }
 }
+
 #antet-site{
     background: linear-gradient(90deg, var(--culoare-accent) 0%, var(--culoare-principala) 45%, var(--culoare-inchisa) 100%);
     color: var(--culoare-deschisa);
@@ -129,67 +152,20 @@ a:hover{
 }
 
 #antet-site h1,
-#antet-site p{
+#antet-site h2{
     margin: 0;
+    color: var(--culoare-deschisa);
+    opacity: 1;
 }
 
 #antet-site h1{
     margin-bottom: 0.5rem;
     font-size: 2rem;
-    color: var(--culoare-deschisa);
-    opacity: 1;
-    text-shadow: 0 0.08rem 0.18rem rgba(0,0,0,0.18);
+    text-shadow: 0 0.08rem 0.18rem var(--culoare-umbra-neagra-18);
 }
 
-#antet-site p{
+#antet-site h2{
     font-size: 1rem;
-    color: var(--culoare-deschisa);
-    opacity: 1;
-}
-
-nav{
-    margin-top: 1.5rem;
-}
-
-nav ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-nav > ul{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: flex-start;
-}
-
-nav li{
-    position: relative;
-}
-
-nav a{
-    display: block;
-    padding: 0.8rem 1.1rem;
-    background-color: var(--culoare-deschisa);
-    color: var(--culoare-accent);
-    border: 0.08rem solid var(--culoare-contur);
-    border-radius: 0.9rem;
-    font-weight: bold;
-}
-
-nav a:hover{
-    transform: translateY(-0.08rem);
-}
-
-nav li ul{
-    margin-top: 0.5rem;
-    padding-left: 1rem;
-}
-
-nav li ul a{
-    background-color: var(--culoare-highlight);
-    color: var(--culoare-text);
     font-weight: normal;
 }
 
@@ -328,6 +304,7 @@ abbr{
 }
 
 .iframe-taburi{
+    order: 1;
     width: 100%;
     min-width: var(--latime-min-video);
     max-width: 100%;
@@ -340,6 +317,7 @@ abbr{
 }
 
 .taburi-iframe{
+    order: 2;
     display: flex;
     justify-content: flex-end;
     align-items: flex-start;
@@ -355,39 +333,33 @@ abbr{
     display: flex;
     align-items: center;
     justify-content: center;
-
     width: 10.2rem;
     min-height: 3.15rem;
     padding: 0.45rem 0.7rem 0.6rem 0.9rem;
     margin-top: 0;
-
     text-align: center;
     line-height: 1.12;
     font-weight: bold;
     color: var(--culoare-accent);
     text-decoration: none;
-
     border: 0.16rem solid var(--culoare-accent);
     border-top: none;
     border-radius: 0 0 0.9rem 0.9rem;
-
     background:
         radial-gradient(
             ellipse at center,
             var(--culoare-deschisa) 0%,
             var(--culoare-highlight) 58%,
-            rgba(200, 167, 138, 0.95) 100%
+            var(--culoare-contur-opac-95) 100%
         );
-
     box-shadow:
-        0 0.18rem 0.45rem rgba(90, 55, 39, 0.12),
-        inset 0 0.05rem 0.08rem rgba(255,255,255,0.65);
-
+        0 0.18rem 0.45rem var(--culoare-umbra-inchisa-12),
+        inset 0 0.05rem 0.08rem var(--culoare-deschisa-65);
     transition:
-        background 0.2s ease,
-        color 0.2s ease,
-        transform 0.2s ease,
-        box-shadow 0.2s ease;
+        background 0.4s ease,
+        color 0.4s ease,
+        transform 0.4s ease,
+        box-shadow 0.4s ease;
 }
 
 .taburi-iframe a::before{
@@ -397,22 +369,24 @@ abbr{
     left: -0.82rem;
     width: 0.95rem;
     height: 0.95rem;
-    background: var(--culoare-fundal);
+    background: var(--culoare-suprafata);
     clip-path: polygon(0 0, 100% 100%, 100% 0);
 }
 
 .taburi-iframe a:hover{
     background: var(--culoare-deschisa);
     color: var(--culoare-principala);
+    text-decoration: none;
     transform: translateY(0.05rem);
     box-shadow:
-        0 0.12rem 0.3rem rgba(90, 55, 39, 0.08),
-        inset 0 0.05rem 0.08rem rgba(255,255,255,0.92);
+        0 0.12rem 0.3rem var(--culoare-umbra-inchisa-08),
+        inset 0 0.05rem 0.08rem var(--culoare-deschisa-92);
 }
 
 .taburi-iframe a:active{
     transform: translateY(0.12rem);
 }
+
 .container-tabel{
     width: 100%;
     overflow-x: visible;
@@ -452,7 +426,7 @@ td{
         background-color 0.75s ease,
         color 0.75s ease,
         border-color 0.75s ease,
-        box-shadow 0.75s ease;
+        border-width 0.75s ease;
 }
 
 tbody td:nth-child(odd),
@@ -471,16 +445,18 @@ tbody tr:hover td{
     background-color: var(--culoare-hover-rand);
     color: var(--culoare-hover-text-rand);
     border-color: var(--culoare-border-hover-rand);
-    box-shadow: inset 0 0 0 2px var(--culoare-border-hover-rand);
+    border-width: 5px;
 }
+
 tbody tr:has(td.gratuit-livrare):hover td.gratuit-livrare,
 tbody tr:has(td.gratuit-livrare):has(+ tr:hover) td.gratuit-livrare,
 tbody tr:has(td.gratuit-livrare):has(+ tr + tr:hover) td.gratuit-livrare{
     background-color: var(--culoare-hover-rand);
     color: var(--culoare-hover-text-rand) !important;
     border-color: var(--culoare-border-hover-rand);
-    box-shadow: inset 0 0 0 2px var(--culoare-border-hover-rand);
+    border-width: 5px;
 }
+
 .gratuit-livrare{
     font-weight: bold;
     color: var(--culoare-secundara) !important;
@@ -521,7 +497,7 @@ meter{
     color: var(--culoare-text);
     overflow-x: auto;
     padding: 1rem;
-    background: linear-gradient(180deg, rgba(244, 229, 212, 0.65), rgba(255, 250, 245, 0.95));
+    background: linear-gradient(180deg, var(--culoare-highlight-65), var(--culoare-deschisa-95));
     border: 0.08rem solid var(--culoare-contur);
     border-radius: 0.9rem;
 }
@@ -584,23 +560,29 @@ figcaption{
 
 #continut-divers{
     background:
-        linear-gradient(180deg, rgba(211, 84, 0, 0.05), rgba(158, 63, 0, 0.03)),
+        linear-gradient(180deg, var(--culoare-principala-05), var(--culoare-accent-03)),
         var(--culoare-suprafata);
 }
 
 #continut-divers > section{
-    background-color: rgba(255, 255, 255, 0.45);
+    background-color: var(--culoare-deschisa-45);
     border: 0.08rem solid var(--culoare-contur);
     border-radius: 0.85rem;
     padding: var(--padding-zona);
     margin-bottom: 1rem;
 }
 
-#recomandare-imagine img,
-#raft-interactiv img{
+#recomandare-imagine img{
     width: 100%;
     min-width: var(--latime-min-imagine);
     max-width: var(--latime-max-imagine);
+    height: auto;
+    margin-inline: auto;
+}
+
+#raft-interactiv img{
+    width: auto;
+    max-width: 100%;
     height: auto;
     margin-inline: auto;
 }
@@ -609,6 +591,8 @@ figcaption{
     width: 100%;
     min-width: var(--latime-min-video);
     max-width: var(--latime-max-video);
+    aspect-ratio: 16 / 9;
+    height: auto;
     margin-inline: auto;
 }
 
@@ -616,11 +600,13 @@ figcaption{
     width: 100%;
     min-width: var(--latime-min-pdf);
     max-width: var(--latime-max-pdf);
+    min-height: 31.25rem;
     margin-inline: auto;
 }
 
 .harta-locatie{
     max-width: 26rem;
+    aspect-ratio: 8 / 5;
 }
 
 object,
@@ -646,7 +632,7 @@ time{
 }
 
 #subsol{
-    background: linear-gradient(90deg, var(--culoare-inchisa), #6a432f);
+    background: linear-gradient(90deg, var(--culoare-inchisa), var(--culoare-footer-secundara));
     color: var(--culoare-deschisa);
     padding: var(--padding-zona);
     margin-bottom: 1rem;
@@ -663,13 +649,19 @@ time{
 #subsol address{
     margin-top: 0;
 }
+
+#banner-print{
+    display: none;
+}
+
 #link-top{
     position: fixed;
     right: 1.4rem;
     bottom: 1.4rem;
-    width: var(--dimensiune-link-top);
-    height: var(--dimensiune-link-top);
+    width: var(--latime-link-top);
+    height: var(--inaltime-link-top);
     display: block;
+    margin: 0;
     opacity: 0.7;
     z-index: 1000;
     text-decoration: none;
@@ -688,10 +680,9 @@ time{
     border-radius: 50% 50% 0 0;
     background-color: var(--culoare-link-top);
     box-shadow:
-        inset 0 0.4rem 0.8rem rgba(255,255,255,0.45),
-        inset 0 -0.35rem 0.6rem rgba(90, 55, 39, 0.12),
-        0 0.2rem 0.5rem rgba(90, 55, 39, 0.16);
-    transform: rotate(45deg);
+        inset 0 0.4rem 0.8rem var(--culoare-deschisa-45),
+        inset 0 -0.35rem 0.6rem var(--culoare-umbra-inchisa-12),
+        0 0.2rem 0.5rem var(--culoare-umbra-inchisa-16);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -708,7 +699,7 @@ time{
     color: var(--culoare-sageata-link-top);
     font-size: 1.7rem;
     line-height: 1;
-    transform: rotate(-45deg) scale(1);
+    transform: scale(1);
     transition:
         transform 0.4s ease,
         color 0.4s ease;
@@ -716,7 +707,8 @@ time{
 }
 
 #link-top:hover #triunghi span{
-    transform: rotate(-45deg) scale(1.18);
+    color: var(--culoare-sageata-link-top-hover);
+    transform: scale(1.18);
 }
 
 #link-top::after{
@@ -738,7 +730,7 @@ time{
         visibility 0.35s ease,
         transform 0.35s ease;
     pointer-events: none;
-    box-shadow: 0 0.2rem 0.5rem rgba(0,0,0,0.18);
+    box-shadow: 0 0.2rem 0.5rem var(--culoare-umbra-neagra-18);
 }
 
 #link-top:hover::after{
@@ -746,6 +738,7 @@ time{
     visibility: visible;
     transform: translateY(0);
 }
+
 @media screen and (max-width: 1350px){
     html{
         font-size: 17px;
@@ -773,7 +766,6 @@ time{
     .zona article,
     .zona aside,
     .zona section section,
-    #butoane-video,
     details,
     #continut-divers > section,
     #antet-site,
@@ -790,13 +782,18 @@ time{
         --latime-max-imagine: 42rem;
         --latime-max-video: 40rem;
         --latime-max-pdf: 48rem;
+        --latime-link-top: 3.6rem;
+        --inaltime-link-top: 4.2rem;
     }
+
     .container-tabel{
         overflow-x: auto;
     }
+
     table{
         min-width: 36rem;
     }
+
     .taburi-iframe{
         justify-content: center;
     }
@@ -805,11 +802,10 @@ time{
         width: 9.5rem;
         min-height: 3rem;
     }
+
     #link-top{
         right: 1rem;
         bottom: 1rem;
-        width: 3.8rem;
-        height: 3.8rem;
     }
 
     #triunghi span{
@@ -846,20 +842,11 @@ time{
     .zona article,
     .zona aside,
     .zona section section,
-    #butoane-video,
     details,
     #continut-divers > section,
     #antet-site,
     #subsol{
         padding: var(--padding-zona-mic);
-    }
-
-    nav > ul{
-        flex-direction: column;
-    }
-
-    nav li ul{
-        padding-left: 0.5rem;
     }
 
     .hero-zona{
@@ -874,20 +861,18 @@ time{
         --latime-max-video: 100%;
         --latime-min-pdf: 10rem;
         --latime-max-pdf: 100%;
+        --latime-link-top: 3.2rem;
+        --inaltime-link-top: 3.8rem;
     }
+
     .container-tabel{
         overflow-x: auto;
     }
+
     table{
         min-width: 30rem;
     }
 
-    *,
-    *::before,
-    *::after{
-        animation: none !important;
-        transition: none !important;
-    }
     .container-iframe{
         max-width: 100%;
     }
@@ -909,11 +894,10 @@ time{
     .taburi-iframe a::before{
         display: none;
     }
+
     #link-top{
         right: 0.8rem;
         bottom: 0.8rem;
-        width: 3.3rem;
-        height: 3.3rem;
     }
 
     #triunghi span{

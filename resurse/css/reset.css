@@ -71,8 +71,13 @@ sup{
     font-size: 0.8em;
 }
 
-img, iframe, object, video{
+img, video{
     max-width: 100%;
     height: auto;
+    display: block;
+}
+
+iframe, object{
+    max-width: 100%;
     display: block;
 }

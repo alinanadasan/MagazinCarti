@@ -1,0 +1,438 @@
+$breakpoint-mediu: 1350px;
+$breakpoint-mic: 768px;
+$durata-tranzitie: 0.4s;
+$durata-masca: 0.65s;
+$latime-icon: 1.35rem;
+$inaltime-buton: 3.2rem;
+$latime-hamburger: 3.2rem;
+$inaltime-hamburger: 2.8rem;
+$grosime-bara: 0.24rem;
+$delay-bara: 180ms;
+$grosime-contur: 0.08rem;
+$raza-buton: 0.9rem;
+$raza-mobila: 0.65rem;
+$inaltime-buton-mobil: 3rem;
+$inaltime-submeniu-mobil: 18rem;
+$font-meniu-mediu: 0.94rem;
+$dimensiune-masca: 100% 220%;
+$pozitie-masca-inchisa: 0 100%;
+$pozitie-masca-deschisa: 0 0;
+
+%lista-resetata {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+%link-meniu {
+    display: flex;
+    align-items: center;
+    min-height: $inaltime-buton;
+    color: var(--culoare-meniu-text);
+    text-decoration: none;
+    transition: color $durata-tranzitie ease, background-color $durata-tranzitie ease;
+
+    &:hover,
+    &:focus-visible {
+        color: var(--culoare-meniu-hover);
+        text-decoration: none;
+    }
+}
+
+.control-meniu,
+.control-submeniu {
+    position: absolute;
+    width: 0.0625rem;
+    height: 0.0625rem;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+}
+
+.buton-hamburger,
+.buton-submeniu {
+    display: none;
+}
+
+.meniu-site {
+    margin-top: 1.5rem;
+    position: relative;
+    z-index: 1100;
+
+    ul {
+        @extend %lista-resetata;
+    }
+
+    .meniu-principal {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: stretch;
+        gap: 0.8rem;
+
+        > .optiune-meniu {
+            position: relative;
+
+            > a {
+                @extend %link-meniu;
+                gap: 0.55rem;
+                padding: 0 1.05rem;
+                background-color: var(--culoare-meniu-fundal);
+                border: $grosime-contur solid var(--culoare-contur);
+                border-radius: $raza-buton;
+                font-weight: 700;
+
+                > i {
+                    width: $latime-icon;
+                    text-align: center;
+                    flex: 0 0 $latime-icon;
+                }
+            }
+
+            &.optiune-acasa {
+                > a {
+                    .text-optiune {
+                        max-width: 0;
+                        margin-left: -0.55rem;
+                        opacity: 0;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        transition: max-width $durata-tranzitie ease, margin-left $durata-tranzitie ease, opacity $durata-tranzitie ease;
+                    }
+                }
+
+                &:hover,
+                &:focus-within {
+                    > a .text-optiune {
+                        max-width: 6rem;
+                        margin-left: 0;
+                        opacity: 1;
+                    }
+                }
+            }
+
+            &.are-submeniu {
+                > a {
+                    padding-right: 2.65rem;
+                }
+            }
+
+            &:hover,
+            &:focus-within {
+                > .submeniu {
+                    transform: scale(1, 1);
+                    visibility: visible;
+                    transition-delay: 0s;
+                }
+            }
+        }
+    }
+
+    .submeniu {
+        position: absolute;
+        top: calc(100% + 0.22rem);
+        left: 0;
+        min-width: 15rem;
+        transform: scale(0, 0);
+        transform-origin: top center;
+        visibility: hidden;
+        transition: transform $durata-tranzitie ease, visibility 0s linear $durata-tranzitie;
+        z-index: 1200;
+
+        li {
+            &:first-child a {
+                border-radius: 0.75rem 0.75rem 0 0;
+            }
+
+            &:last-child a {
+                border-radius: 0 0 0.75rem 0.75rem;
+            }
+        }
+
+        a {
+            @extend %link-meniu;
+            min-height: 2.8rem;
+            padding: 0.65rem 0.9rem;
+            background-color: var(--culoare-submeniu-fundal);
+            color: var(--culoare-submeniu-text);
+            border: $grosime-contur solid var(--culoare-contur);
+            border-top-width: 0;
+            font-weight: 400;
+
+            &:hover,
+            &:focus-visible {
+                color: var(--culoare-meniu-hover);
+            }
+        }
+    }
+
+    .buton-submeniu {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 2.65rem;
+        min-height: $inaltime-buton;
+        align-items: center;
+        justify-content: center;
+        color: var(--culoare-meniu-text);
+    }
+}
+
+@media screen and (max-width: $breakpoint-mediu) and (min-width: ($breakpoint-mic + 1px)) {
+    .meniu-site {
+        .meniu-principal {
+            gap: 0.55rem;
+
+            > .optiune-meniu {
+                > a {
+                    width: 3.25rem;
+                    min-height: $inaltime-buton-mobil;
+                    padding: 0;
+                    justify-content: center;
+                    font-size: $font-meniu-mediu;
+
+                    .text-optiune {
+                        display: none;
+                    }
+                }
+
+                &.are-submeniu > a {
+                    padding-right: 0;
+                }
+
+                &.optiune-acasa:hover,
+                &.optiune-acasa:focus-within {
+                    > a .text-optiune {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .submeniu {
+            min-width: 13.5rem;
+
+            a {
+                font-size: 0.9rem;
+            }
+        }
+    }
+}
+
+@keyframes aparitie-bara-hamburger {
+    0% {
+        background-color: var(--culoare-meniu-hover);
+        transform: translateX(-1rem) scaleX(0.25) rotate(-8deg);
+        opacity: 0;
+    }
+
+    55% {
+        background-color: var(--culoare-bara-hamburger-intermediar);
+        transform: translateX(0.18rem) scaleX(1.12) rotate(3deg);
+        opacity: 0.68;
+    }
+
+    100% {
+        background-color: var(--culoare-bara-hamburger);
+        transform: translateX(0) scaleX(1) rotate(0deg);
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: $breakpoint-mic) {
+    .buton-hamburger {
+        position: relative;
+        display: block;
+        width: $latime-hamburger;
+        height: $inaltime-hamburger;
+        margin-top: 1.2rem;
+        cursor: pointer;
+        border: $grosime-contur solid var(--culoare-contur);
+        border-radius: $raza-mobila;
+        background-color: var(--culoare-accent);
+        overflow: hidden;
+        z-index: 1300;
+
+        span {
+            position: absolute;
+            left: 18%;
+            width: 64%;
+            height: $grosime-bara;
+            border-radius: $grosime-bara;
+            background-color: var(--culoare-bara-hamburger);
+            transform-origin: center;
+            animation-name: aparitie-bara-hamburger;
+            animation-duration: 0.75s;
+            animation-timing-function: ease-out;
+            animation-fill-mode: backwards;
+            transition: top $durata-tranzitie ease, transform $durata-tranzitie ease, opacity $durata-tranzitie ease, background-color $durata-tranzitie ease;
+
+            &:nth-child(1) {
+                top: 24%;
+            }
+
+            &:nth-child(2) {
+                top: calc(50% - #{$grosime-bara} / 2);
+            }
+
+            &:nth-child(3) {
+                top: calc(76% - #{$grosime-bara});
+            }
+        }
+
+        @for $i from 1 through 3 {
+            span:nth-child(#{$i}) {
+                animation-delay: ($i - 1) * $delay-bara;
+            }
+        }
+    }
+
+    #ch-meniu:checked + .buton-hamburger {
+        span:nth-child(1) {
+            top: calc(50% - #{$grosime-bara} / 2);
+            transform: rotate(45deg);
+        }
+
+        span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0.15);
+        }
+
+        span:nth-child(3) {
+            top: calc(50% - #{$grosime-bara} / 2);
+            transform: rotate(-45deg);
+        }
+    }
+
+    .meniu-site {
+        margin-top: 0.7rem;
+        max-height: 0;
+        overflow: hidden;
+        visibility: hidden;
+        -webkit-mask-image: linear-gradient(to bottom, var(--culoare-masca-meniu) 0%, var(--culoare-masca-meniu) 46%, var(--culoare-transparenta) 56%, var(--culoare-transparenta) 100%);
+        mask-image: linear-gradient(to bottom, var(--culoare-masca-meniu) 0%, var(--culoare-masca-meniu) 46%, var(--culoare-transparenta) 56%, var(--culoare-transparenta) 100%);
+        -webkit-mask-size: $dimensiune-masca;
+        mask-size: $dimensiune-masca;
+        -webkit-mask-position: $pozitie-masca-inchisa;
+        mask-position: $pozitie-masca-inchisa;
+        transition: max-height $durata-masca ease, -webkit-mask-position $durata-masca ease, mask-position $durata-masca ease, visibility 0s linear $durata-masca;
+
+        .meniu-principal {
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+            gap: 0.45rem;
+            width: 100%;
+
+            > .optiune-meniu {
+                width: 100%;
+
+                > a {
+                    width: 100%;
+                    min-height: $inaltime-buton-mobil;
+                    justify-content: flex-start;
+                    padding: 0 3.2rem 0 1rem;
+                    font-size: $font-meniu-mediu;
+
+                    .text-optiune {
+                        display: inline;
+                        max-width: none;
+                        margin-left: 0;
+                        opacity: 1;
+                        overflow: visible;
+                    }
+                }
+
+                &.optiune-acasa {
+                    > a {
+                        justify-content: center;
+                        padding-right: 1rem;
+
+                        .text-optiune {
+                            display: none;
+                        }
+                    }
+
+                    &:hover,
+                    &:focus-within {
+                        > a .text-optiune {
+                            display: none;
+                        }
+                    }
+                }
+
+                &.are-submeniu > a {
+                    padding-right: 3.2rem;
+                }
+
+                &:hover,
+                &:focus-within {
+                    > .submeniu {
+                        max-height: $inaltime-submeniu-mobil;
+                        visibility: visible;
+                        -webkit-mask-position: $pozitie-masca-deschisa;
+                        mask-position: $pozitie-masca-deschisa;
+                    }
+                }
+            }
+        }
+
+        .buton-submeniu {
+            display: flex;
+            min-height: $inaltime-buton-mobil;
+            cursor: pointer;
+            transition: color $durata-tranzitie ease, transform $durata-tranzitie ease;
+        }
+
+        .control-submeniu:checked + .buton-submeniu {
+            color: var(--culoare-meniu-hover);
+            transform: rotate(180deg);
+        }
+
+        .control-submeniu:checked ~ .submeniu {
+            max-height: $inaltime-submeniu-mobil;
+            visibility: visible;
+            -webkit-mask-position: $pozitie-masca-deschisa;
+            mask-position: $pozitie-masca-deschisa;
+        }
+
+        .submeniu {
+            position: static;
+            min-width: 0;
+            max-height: 0;
+            overflow: hidden;
+            transform: none;
+            visibility: hidden;
+            -webkit-mask-image: linear-gradient(to bottom, var(--culoare-masca-meniu) 0%, var(--culoare-masca-meniu) 46%, var(--culoare-transparenta) 56%, var(--culoare-transparenta) 100%);
+            mask-image: linear-gradient(to bottom, var(--culoare-masca-meniu) 0%, var(--culoare-masca-meniu) 46%, var(--culoare-transparenta) 56%, var(--culoare-transparenta) 100%);
+            -webkit-mask-size: $dimensiune-masca;
+            mask-size: $dimensiune-masca;
+            -webkit-mask-position: $pozitie-masca-inchisa;
+            mask-position: $pozitie-masca-inchisa;
+            transition: max-height $durata-masca ease, -webkit-mask-position $durata-masca ease, mask-position $durata-masca ease, visibility 0s linear $durata-masca;
+
+            li {
+                &:first-child a,
+                &:last-child a {
+                    border-radius: $raza-mobila;
+                }
+            }
+
+            a {
+                min-height: 2.65rem;
+                margin-top: 0.35rem;
+                padding-left: 2rem;
+                border-top-width: $grosime-contur;
+                border-radius: $raza-mobila;
+                font-size: 0.88rem;
+            }
+        }
+    }
+
+    #ch-meniu:checked ~ .meniu-site {
+        max-height: 70rem;
+        visibility: visible;
+        -webkit-mask-position: $pozitie-masca-deschisa;
+        mask-position: $pozitie-masca-deschisa;
+        transition-delay: 0s;
+    }
+}

@@ -1,48 +1,88 @@
 <!DOCTYPE html>
 <html lang="ro">
-    <head>
-        <title>BookNest (Cuibul Cărților)</title>    
-        <meta charset="utf-8">
-        <meta name="author" content="Constanta-Alina Pirlea">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="description" content="BookNest este o librărie online cu cărți pentru toate vârstele: ficțiune, non-ficțiune, copii și dezvoltare personală. Comandă ușor, plătește în siguranță și primești rapid acasă." />
-        <meta name="keywords" content="BookNest, librarie online, magazin de carti, carti online, cumpara carti, carti ieftine, reduceri carti, bestsellere, carti noi, fictiune, non-fictiune, dezvoltare personala, carti pentru copii, manuale, literatura romana, literatura universala, livrare rapida, comanda carti online">
-        <link rel="icon" type="image/png" href="./resurse/ico/favicon-96x96.png" sizes="96x96" />
-        <link rel="icon" type="image/svg+xml" href="./resurse/ico/favicon.svg" />
-        <link rel="shortcut icon" href="./resurse/ico/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="./resurse/ico/apple-touch-icon.png" />
-        <meta name="apple-mobile-web-app-title" content="BookNest" />
-        <link rel="manifest" href="./resurse/ico/site.webmanifest">
-        <meta name="msapplication-TileColor" content="#d35400">
-        <meta name="theme-color" content="#ffffff">
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-        <link rel="stylesheet" href="./resurse/css/reset.css">
-        <link rel="stylesheet" href="./resurse/css/general.css">
-    </head>
+<head>
+    <title>BookNest (Cuibul Cărților)</title>
+    <meta charset="utf-8">
+    <meta name="author" content="Constanța-Alina Pîrlea">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="BookNest este o librărie online și un magazin de cărți pentru toate vârstele, cu bestsellere, cărți noi, reduceri, livrare rapidă și recomandări de lectură.">
+    <meta name="keywords" content="BookNest, librărie online, magazin de cărți, cumpără cărți online, reduceri cărți, bestsellere, cărți noi, cărți pentru copii, dezvoltare personală, literatură universală, livrare rapidă">
+    <link rel="icon" type="image/png" href="./resurse/ico/favicon-96x96.png" sizes="96x96">
+    <link rel="icon" type="image/svg+xml" href="./resurse/ico/favicon.svg">
+    <link rel="shortcut icon" href="./resurse/ico/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="./resurse/ico/apple-touch-icon.png">
+    <meta name="apple-mobile-web-app-title" content="BookNest">
+    <link rel="manifest" href="./resurse/ico/site.webmanifest">
+    <meta name="msapplication-TileColor" content="#d35400">
+    <meta name="theme-color" content="#faf1e8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&amp;display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+    <link rel="stylesheet" href="./resurse/css/reset.css">
+    <link rel="stylesheet" href="./resurse/css/general.css">
+    <link rel="stylesheet" href="./resurse/css/meniu.css">
+    <link rel="stylesheet" href="./resurse/css/print.css" media="print">
+</head>
 <body>
     <header id="antet-site">
         <hgroup>
             <h1>BookNest - Cuibul Cărților</h1>
-            <p>Librăria ta online cu cărți pentru toate vârstele</p>
+            <h2>Librăria ta online cu cărți pentru toate vârstele</h2>
         </hgroup>
 
-        <nav>
-            <ul>
-                <li>
-                    <a href="index.html">Acasă</a>
-                    <ul>
+        <input type="checkbox" id="ch-meniu" class="control-meniu">
+        <label for="ch-meniu" class="buton-hamburger" aria-label="Deschide sau închide meniul principal">
+            <span></span>
+            <span></span>
+            <span></span>
+        </label>
+
+        <nav class="meniu-site" aria-label="Meniu principal">
+            <ul class="meniu-principal">
+                <li id="optiune-acasa" class="optiune-meniu optiune-acasa are-submeniu">
+                    <a href="index.html">
+                        <i class="fa-solid fa-house" aria-hidden="true"></i>
+                        <span class="text-optiune">Acasă</span>
+                    </a>
+                    <input type="checkbox" id="ch-submeniu-acasa" class="control-submeniu">
+                    <label for="ch-submeniu-acasa" class="buton-submeniu" aria-label="Deschide submeniul Acasă">
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </label>
+                    <ul class="submeniu">
                         <li><a href="#promotii-carti">Promoții și Bestsellere</a></li>
-                        <li><a href="#categorii-produse">Categorii Cărți</a></li>
+                        <li><a href="#categorii-produse">Categorii de Cărți</a></li>
                         <li><a href="#evenimente-librarie">Evenimente</a></li>
+                        <li><a href="#informatii-livrare">Informații despre Livrare</a></li>
                     </ul>
                 </li>
-                <li><a href="produse.html">Magazin (Catalog)</a></li>
-                <li><a href="detalii-carte.html">Cartea Zilei</a></li>
-                <li><a href="contact.html">Despre Noi & Contact</a></li>
+                <li class="optiune-meniu are-submeniu">
+                    <a href="produse.html">
+                        <i class="fa-solid fa-book-open" aria-hidden="true"></i>
+                        <span class="text-optiune">Magazin</span>
+                    </a>
+                    <input type="checkbox" id="ch-submeniu-magazin" class="control-submeniu">
+                    <label for="ch-submeniu-magazin" class="buton-submeniu" aria-label="Deschide submeniul Magazin">
+                        <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+                    </label>
+                    <ul class="submeniu">
+                        <li><a href="produse.html">Catalogul de Cărți</a></li>
+                        <li><a href="detalii-carte.html">Cartea Zilei</a></li>
+                        <li><a href="checkout.html">Coș de Cumpărături</a></li>
+                    </ul>
+                </li>
+                <li class="optiune-meniu">
+                    <a href="detalii-carte.html">
+                        <i class="fa-solid fa-star" aria-hidden="true"></i>
+                        <span class="text-optiune">Recomandări</span>
+                    </a>
+                </li>
+                <li class="optiune-meniu">
+                    <a href="contact.html">
+                        <i class="fa-solid fa-envelope" aria-hidden="true"></i>
+                        <span class="text-optiune">Despre Noi &amp; Contact</span>
+                    </a>
+                </li>
             </ul>
         </nav>
     </header>
@@ -55,28 +95,28 @@
             <div class="hero-zona">
                 <div class="hero-text">
                     <h2>Promoții și Bestsellere</h2>
-                    <p>Descoperă cele mai căutate titluri din <b>librăria noastră online</b>, alege <b>cărți noi</b> în fiecare săptămână și bucură-te de <b>reduceri cărți</b> excepționale.</p>
+                    <p>BookNest este o <b>librărie online</b> și un <b>magazin de cărți</b> în care poți alege rapid orice titlu. <b>Cumpără cărți online</b> ușor și în siguranță. Descoperă <b>cărți noi</b>, <b>bestsellere</b> și <b>reduceri cărți</b> în fiecare săptămână.</p>
 
                     <article>
-                        <h3>Pachetul "Ficțiune de Primăvară"</h3>
-                        <p>Cumpără orice roman de ficțiune și ai reducere de <s>15%</s> <ins>25%</ins> la al doilea volum adăugat în coș.</p>
+                        <h3>Pachetul „Ficțiune de Primăvară”</h3>
+                        <p>Cumpără orice roman de ficțiune și ai reducere de <s>15%</s> <ins>25%</ins> la al doilea volum adăugat în coș. Oferta aduce noi reduceri cărți pentru cititorii BookNest.</p>
                     </article>
 
                     <article>
                         <h3>Top Cărți pentru Copii</h3>
-                        <p>Cele mai frumoase povești ilustrate pentru micii cititori, de la 0 la 7 ani.</p>
+                        <p>Cele mai frumoase cărți pentru copii îi ajută pe micii cititori, de la 0 la 7 ani, să descopere lectura prin povești ilustrate.</p>
                     </article>
                 </div>
 
                 <div class="hero-media">
-                    <p>Vezi coperta noului nostru bestseller:</p>
+                    <p>Vezi coperta unuia dintre noile noastre bestsellere:</p>
                     <a href="./resurse/imagini/coperta-mare.png">
-                        <img src="./resurse/imagini/coperta-mica.png" alt="Coperta bestseller primavara" width="150">
+                        <img src="./resurse/imagini/coperta-mica.png" alt="Coperta cărții Toți am fost aici de Jojo Moyes" width="150">
                     </a>
 
                     <aside>
                         <h3>Autorul Lunii</h3>
-                        <p>Nu rata reducerea specială de 20% la toate volumele scrise de autorul lunii!</p>
+                        <p>Nu rata reducerea specială de 20% la volumele autorului lunii și selecția de cărți noi din librăria online BookNest.</p>
                         <p>
                             <a href="./resurse/imagini/semn-de-carte-original.png" download="BookNest_SemnDeCarte_Cadou.png">
                                 Descarcă gratuit semnul de carte BookNest (ediție limitată)
@@ -89,7 +129,7 @@
 
         <section id="informatii-livrare" class="zona zona2">
             <h2>Informații despre Livrare</h2>
-            <p>Alege metoda de livrare care ți se potrivește cel mai bine. La BookNest, ne asigurăm că volumele tale preferate ajung rapid și în siguranță la tine.</p>
+            <p>Alege metoda de livrare rapidă care ți se potrivește cel mai bine. La BookNest, cumpără cărți online, iar volumele tale preferate ajung rapid și în siguranță la tine.</p>
 
             <div class="container-tabel">
                 <table>
@@ -125,32 +165,39 @@
                             <td>10 RON</td>
                             <td>10 RON</td>
                         </tr>
+                        <tr>
+                            <td>Ridicare din punctul BookNest</td>
+                            <td>În aceeași zi</td>
+                            <td>GRATUIT</td>
+                            <td>GRATUIT</td>
+                        </tr>
                     </tbody>
                     <tfoot>
                         <tr>
-                            <td colspan="4">Notă: Timpii de livrare pot suferi întârzieri în perioadele aglomerate (Sărbători, Black Friday). Tabelul a fost actualizat la 1 martie.</td>
+                            <td colspan="4">Notă: Timpii de livrare pot suferi întârzieri în perioadele aglomerate. Tabelul a fost actualizat la 1 martie.</td>
                         </tr>
                     </tfoot>
                 </table>
             </div>
         </section>
+
         <section id="evenimente-librarie" class="zona zona3">
             <h2>Evenimente și Lansări de Carte</h2>
             <p>Fii la curent cu cele mai noi activități organizate de echipa BookNest!</p>
             <ul>
                 <li>
-                    <time datetime="2026-04-15T18:00">15 aprilie, ora 18:00</time> - 
-                    <b>Lansare de carte: Misterul din Bibliotecă</b>. 
+                    <time datetime="2026-04-15T18:00">15 aprilie, ora 18:00</time> -
+                    <b>Lansare de carte: Misterul din Bibliotecă</b>.
                     Te invităm la o întâlnire exclusivă online cu autoarea Maria Popescu, urmată de o sesiune de întrebări și răspunsuri.
                 </li>
                 <li>
-                    <time datetime="2026-04-23T10:00">23 aprilie, ora 10:00</time> - 
-                    <b>Ziua Internațională a Cărții</b>. 
+                    <time datetime="2026-04-23T10:00">23 aprilie, ora 10:00</time> -
+                    <b>Ziua Internațională a Cărții</b>.
                     Sărbătorim lectura oferind tuturor vizitatorilor site-ului un cod de reducere de 30% la toate titlurile, valabil timp de 24 de ore.
                 </li>
                 <li>
-                    <time datetime="2026-05-10T16:30">10 mai, ora 16:30</time> - 
-                    <b>Atelier de lectură pentru copii</b>. 
+                    <time datetime="2026-05-10T16:30">10 mai, ora 16:30</time> -
+                    <b>Atelier de lectură pentru copii</b>.
                     Transmitem live pe site lectura celor mai noi povești ilustrate apărute în catalogul nostru, o activitate perfectă pentru cei mici.
                 </li>
             </ul>
@@ -171,28 +218,29 @@
             <h2>Statistici și Stocuri</h2>
             <p>Fii la curent cu disponibilitatea celor mai dorite titluri și a locurilor la evenimentele BookNest.</p>
             <p>
-                Stoc pentru ediția de colecție "Misterul din Bibliotecă": 
+                Stoc pentru ediția de colecție „Misterul din Bibliotecă”:
                 <meter min="0" max="100" low="20" high="80" optimum="100" value="12" title="12 exemplare rămase din 100">12%</meter>
                 <br><small class="stoc-critic">Grăbește-te! Stoc critic.</small>
             </p>
             <p>
-                Locuri ocupate la atelierul de lectură pentru copii: 
+                Locuri ocupate la atelierul de lectură pentru copii:
                 <meter min="0" max="50" low="15" high="45" optimum="50" value="48" title="48 locuri ocupate din 50">48 din 50</meter>
                 <br><small class="aproape-sold-out">Eveniment aproape sold-out!</small>
             </p>
         </section>
+
         <section id="date-site-server" class="zona zona7">
             <h2>Date despre site și server</h2>
             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla facilisi. Sed posuere justo et arcu viverra, nec placerat turpis luctus.</p>
         </section>
 
-        <section id="continut-divers" class="zona zona8">
+        <div id="continut-divers" class="zona zona8">
             <section id="categorii-produse">
                 <h2>Categorii de Cărți</h2>
-                <p>Răsfoiește catalogul nostru bogat în literatură universală și română.</p>
+                <p>Răsfoiește catalogul acestui magazin de cărți și descoperă literatură universală, literatură română și recomandări pentru fiecare vârstă.</p>
                 <section>
                     <h3>Dezvoltare Personală</h3>
-                    <p>Găsește motivația de care ai nevoie zilnic prin cărți de psihologie practică.</p>
+                    <p>Secțiunea de dezvoltare personală reunește cărți de psihologie practică, motivație și relații.</p>
                 </section>
                 <section>
                     <h3>Ficțiune și Beletristică</h3>
@@ -202,8 +250,8 @@
 
             <section id="pasiune-lectura">
                 <h2>Pasiunea pentru lectură</h2>
-                <p>La BookNest, credem că fiecare carte ascunde un univers care așteaptă să fie descoperit. De aceea, ne străduim să aducem pe rafturile noastre virtuale cele mai captivante povești pentru cititorii de toate vârstele.</p>
-                <p>Dacă vrei să îți urmărești progresul lecturilor și să lași recenzii, îți recomandăm să explorezi comunitatea 
+                <p>La BookNest, credem că fiecare carte ascunde un univers care așteaptă să fie descoperit. De aceea, aducem în această librărie online cele mai captivante povești pentru cititorii de toate vârstele.</p>
+                <p>Dacă vrei să îți urmărești progresul lecturilor și să lași recenzii, îți recomandăm să explorezi comunitatea
                     <a href="https://www.goodreads.com/" target="_blank">Goodreads</a>.
                 </p>
                 <p>Ești curios cum a evoluat cartea de-a lungul timpului? Citește despre dezvoltarea tiparului în secolul al XIX-lea accesând acest link:<br>
@@ -212,7 +260,7 @@
                     </a>
                 </p>
                 <blockquote>
-                    "O cameră fără cărți este ca un corp fără suflet." – Marcus Tullius Cicero
+                    „O cameră fără cărți este ca un corp fără suflet.” – Marcus Tullius Cicero
                 </blockquote>
                 <article>
                     <h3>Formate disponibile în magazinul nostru</h3>
@@ -234,36 +282,34 @@
                     <picture>
                         <source srcset="./resurse/imagini/citit-cozy-mic.jpg" media="(max-width: 600px)">
                         <source srcset="./resurse/imagini/citit-cozy-mediu.jpg" media="(max-width: 1024px)">
-                        <img src="./resurse/imagini/citit-cozy-mare.jpg" 
-                             alt="O persoană relaxată citind o carte într-un fotoliu confortabil lângă o fereastră." 
+                        <img src="./resurse/imagini/citit-cozy-mare.jpg"
+                             alt="O carte deschisă așezată pe o pernă, alături de o cană și o lumină caldă."
                              title="Un moment perfect de lectură la BookNest"
                              width="800">
                     </picture>
-                    <figcaption>Amenajează-ți propriul "cuib" de lectură acasă cu selecția noastră de literatură universală.</figcaption>
+                    <figcaption>Amenajează-ți propriul „cuib” de lectură acasă cu selecția noastră de literatură universală.</figcaption>
                 </figure>
-            </section> 
+            </section>
 
             <section id="recomandari-video">
                 <h2>Recenzii Video și Atmosferă de Lectură</h2>
                 <p>Descoperă recomandările noastre video sau alege o muzică relaxantă de fundal pentru sesiunile tale de citit.</p>
                 <div class="container-iframe">
+                    <div class="taburi-iframe">
+                        <a href="https://www.youtube.com/embed/yIohD8KjdIg" target="iframe-video-carti">Cum să citești mai mult</a>
+                        <a href="https://www.youtube.com/embed/hZ2VCaK1mg4" target="iframe-video-carti">Top 10 Cărți de Ficțiune</a>
+                        <a href="https://www.youtube.com/embed/c5X0E14OAiA" target="iframe-video-carti">Muzică ambientală pentru lectură</a>
+                    </div>
                     <iframe class="media-frame iframe-taburi" name="iframe-video-carti"
                             width="560"
                             height="315"
                             src="https://www.youtube.com/embed/c5X0E14OAiA"
                             title="YouTube video player pentru BookNest"
-                            frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                             allowfullscreen>
                     </iframe>
-
-                    <div class="taburi-iframe">
-                        <a href="https://www.youtube.com/embed/yIohD8KjdIg" target="iframe-video-carti">Cum să citești mai mult</a>
-                        <a href="https://www.youtube.com/embed/hZ2VCaK1mg4" target="iframe-video-carti">Top 10 Cărți de Ficțiune</a>
-                        <a href="https://www.youtube.com/embed/c5X0E14OAiA" target="iframe-video-carti">Muzică ambientală pentru lectură (Inițial)</a>
-                    </div>
                 </div>
-            </section>        
+            </section>
 
             <section id="intrebari-frecvente">
                 <h2>Întrebări Frecvente (FAQ)</h2>
@@ -271,22 +317,22 @@
 
                 <details>
                     <summary>Cum pot returna o carte dacă m-am răzgândit?</summary>
-                    <p>Conform politicii BookNest, poți returna orice carte fizică în termen de 14 zile de la primirea coletului, cu condiția ca aceasta să nu prezinte urme de uzură (pagini îndoite, pete). Banii îți vor fi rambursați în cont în maxim 5 zile lucrătoare.</p>
+                    <p>Conform politicii BookNest, poți returna orice carte fizică în termen de 14 zile de la primirea coletului, cu condiția ca aceasta să nu prezinte urme de uzură. Banii îți vor fi rambursați în cont în maximum 5 zile lucrătoare.</p>
                 </details>
 
                 <details>
                     <summary>În ce format primesc e-book-urile achiziționate?</summary>
-                    <p>E-book-urile noastre pot fi descărcate instant din contul tău de client în formatele EPUB și PDF. Acestea sunt compatibile cu majoritatea e-readerelor (inclusiv Kindle, prin conversie automată), tabletelor și aplicațiilor mobile de citit.</p>
+                    <p>E-book-urile noastre pot fi descărcate instant din contul tău de client în formatele EPUB și PDF. Acestea sunt compatibile cu majoritatea e-readerelor, tabletelor și aplicațiilor mobile de citit.</p>
                 </details>
 
                 <details>
                     <summary>Cum pot urmări statusul livrării pentru comanda mea?</summary>
-                    <p>Imediat ce comanda ta de cărți este predată curierului, vei primi un e-mail automat cu numărul de AWB și un link direct de urmărire (tracking). De asemenea, poți verifica statusul direct din secțiunea "Istoric Comenzi" a contului tău.</p>
+                    <p>Imediat ce comanda ta de cărți este predată curierului, vei primi un e-mail automat cu numărul de AWB și un link direct de urmărire. Serviciul de livrare rapidă poate fi verificat și din secțiunea „Istoric Comenzi”.</p>
                 </details>
-            </section>                              
+            </section>
 
             <section id="timp-lectura">
-                <h3>Cum îți calculezi timpul de lectură?</h3>
+                <h2>Cum îți calculezi timpul de lectură?</h2>
                 <p>Dacă vrei să știi în cât timp vei termina noul tău roman, folosește formula noastră:</p>
                 <math xmlns="http://www.w3.org/1998/Math/MathML" display="block" class="formula-lectura">
                     <mrow>
@@ -295,67 +341,67 @@
                         <mfrac class="formula-fractie">
                             <mrow>
                                 <mi class="formula-numarator">Număr Pagini</mi>
-                                <mo class="formula-operator">&times;</mo>
+                                <mo class="formula-operator">×</mo>
                                 <mi class="formula-numarator">Cuvinte per Pagină</mi>
                             </mrow>
                             <mrow>
                                 <mi class="formula-numitor">Viteza ta (cuvinte/minut)</mi>
-                                <mo class="formula-operator">&times;</mo>
+                                <mo class="formula-operator">×</mo>
                                 <mn class="formula-constanta">60</mn>
                             </mrow>
                         </mfrac>
                     </mrow>
                 </math>
-            </section>      
+            </section>
 
             <section id="fragment-gratuit">
                 <h2>Citește un fragment gratuit</h2>
-                <p>Răsfoiește primul capitol din Bestseller-ul lunii înainte să-l cumperi!</p>
-                <object class="media-document" data="./resurse/pdf/fragment-carte.pdf" type="application/pdf" width="100%" height="500">
+                <p>Răsfoiește primul capitol din bestsellerul lunii înainte să-l cumperi!</p>
+                <object class="media-document" data="./resurse/pdf/fragment-carte.pdf" type="application/pdf" height="500">
                     <p>Browserul tău nu suportă afișarea PDF-urilor direct în pagină. <a href="./resurse/pdf/fragment-carte.pdf" download="Fragment_Carte.pdf">Descarcă fragmentul de aici</a>.</p>
                 </object>
-            </section>    
+            </section>
 
             <section id="raft-interactiv">
                 <h2>Explorează Raftul Interactiv</h2>
                 <p>Dă click pe secțiunile raftului pentru a merge la categoria dorită!</p>
-                <img src="./resurse/imagini/raft-carti.jpg" alt="Raftul Interactiv BookNest" usemap="#harta-raft" width="600" height="400">
+                <img src="./resurse/imagini/raft-carti.jpg" alt="Raftul interactiv BookNest cu mai multe categorii de cărți" usemap="#harta-raft" width="600" height="900">
                 <map name="harta-raft">
-                    <area shape="rect" coords="20,20,250,180" href="#categorii-produse" alt="Ficțiune" title="Cărți de Ficțiune">
-                    <area shape="circle" coords="400,100,60" href="#promotii-carti" alt="Recomandare" title="Bestseller-ul lunii">
-                    <area shape="poly" coords="30,220, 200,220, 150,380, 50,380" href="#evenimente-librarie" alt="Copii" title="Cărți pentru Copii">
+                    <area shape="rect" coords="20,20,290,340" href="#categorii-produse" alt="Ficțiune" title="Cărți de Ficțiune">
+                    <area shape="circle" coords="450,170,90" href="#promotii-carti" alt="Recomandare" title="Bestsellerul lunii">
+                    <area shape="poly" coords="20,400,580,400,580,850,20,850" href="#evenimente-librarie" alt="Copii" title="Cărți pentru Copii">
                 </map>
-            </section>    
+            </section>
 
             <section id="playlist-automat">
                 <h2>Playlist Video pentru Cititori</h2>
                 <p>Bucură-te de recenziile noastre și muzica ambientală într-un playlist care rulează neîntrerupt!</p>
-                <iframe class="media-frame" width="560" height="315" 
-                        src="https://www.youtube.com/embed/yIohD8KjdIg?autoplay=1&controls=1&loop=1&playlist=hZ2VCaK1mg4,c5X0E14OAiA" 
-                        title="Playlist YouTube BookNest" 
-                        frameborder="0" 
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                <iframe class="media-frame" width="560" height="315"
+                        src="https://www.youtube.com/embed/yIohD8KjdIg?autoplay=1&amp;mute=1&amp;controls=1&amp;loop=1&amp;playlist=yIohD8KjdIg,hZ2VCaK1mg4,c5X0E14OAiA"
+                        title="Playlist YouTube BookNest"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                         allowfullscreen>
                 </iframe>
-            </section>   
-        </section>               
+            </section>
+        </div>
     </main>
 
     <footer id="subsol">
-        <p>BookNest - Librăria ta online de încredere.</p>
+        <p id="banner-print">Acesta este un proiect școlar!</p>
+        <p>BookNest este o librărie online de încredere, cu bestsellere, cărți noi și livrare rapidă.</p>
         <p><a href="#antet-site" title="Mergi la începutul paginii">Înapoi sus &#8593;</a></p>
         <address>
             📍 Locație fizică:<br>
             <a href="https://maps.app.goo.gl/6j1H3X7Z" target="_blank">
-                Facultatea de Matematică și Informatică,<br>
-                Strada Academiei 14, București, România
+                Strada Cuibului nr. 12,<br>
+                Sector 1, București, România
             </a><br><br>
-            
+
             <iframe class="harta-locatie media-frame"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2848.8436413710776!2d26.099596315522514!3d44.43692897910243!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40b1ff473528b829%3A0x6335193910ee2a94!2sFacultatea%20de%20Matematic%C4%83%20%C8%99i%20Informatic%C4%83!5e0!3m2!1sro!2sro!4v1678123456789!5m2!1sro!2sro"
-                    width="400" height="250" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+                    width="400" height="250" allowfullscreen referrerpolicy="no-referrer-when-downgrade">
             </iframe><br><br>
-            
+
             📞 Telefon: <a href="tel:+40712345678">0712 345 678</a><br>
             ✉️ E-mail: <a href="mailto:salut@booknest.ro">salut@booknest.ro</a><br>
             <i class="fa-solid fa-book-open-reader icon-animat"></i> WhatsApp: <a href="https://wa.me/40712345678" target="_blank">Chat cu echipa de suport</a>
@@ -367,6 +413,7 @@
             </small>
         </p>
     </footer>
+
     <a id="link-top" href="#antet-site" aria-label="Mergi la începutul paginii" data-tooltip="Mergi la începutul paginii">
         <div id="triunghi">
             <span>&#129081;</span>
