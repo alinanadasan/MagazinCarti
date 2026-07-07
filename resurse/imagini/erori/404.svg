@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#faf1e8"/>
+  <path d="M120 120q140-70 280 10v260q-140-80-280-10z" fill="#fffaf5" stroke="#8f4620" stroke-width="10"/>
+  <path d="M680 120q-140-70-280 10v260q140-80 280-10z" fill="#fffaf5" stroke="#8f4620" stroke-width="10"/>
+  <path d="M400 130v260" stroke="#c8a78a" stroke-width="8"/>
+  <text x="400" y="285" text-anchor="middle" font-family="serif" font-weight="bold" font-size="110" fill="#d35400">404</text>
+  <text x="400" y="465" text-anchor="middle" font-family="serif" font-size="48" fill="#2c1e16">Pagina nu a fost găsită</text>
+</svg>

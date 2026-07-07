@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#faf1e8"/>
+  <g transform="translate(400 235)">
+    <circle r="145" fill="#f4e5d4" stroke="#8f4620" stroke-width="12"/>
+    <g fill="#d35400">
+      <rect x="-22" y="-210" width="44" height="70" rx="12"/>
+      <rect x="-22" y="140" width="44" height="70" rx="12"/>
+      <rect x="140" y="-22" width="70" height="44" rx="12"/>
+      <rect x="-210" y="-22" width="70" height="44" rx="12"/>
+    </g>
+    <text x="0" y="28" text-anchor="middle" font-family="serif" font-weight="bold" font-size="92" fill="#5a3727">500</text>
+  </g>
+  <text x="400" y="465" text-anchor="middle" font-family="serif" font-size="46" fill="#2c1e16">Eroare internă</text>
+</svg>

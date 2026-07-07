@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html  lang="ro">
+    <head>
+        <title>BookNest (Cuibul Cărților)</title>
+        <meta name="description" content="BookNest este o librărie online și un magazin de cărți pentru toate vârstele, cu bestsellere, cărți noi, reduceri, livrare rapidă și recomandări de lectură.">
+        <meta name="keywords" content="BookNest, librărie online, magazin de cărți, cumpără cărți online, reduceri cărți, bestsellere, cărți noi, cărți pentru copii, dezvoltare personală, literatură universală, livrare rapidă">
+
+        
+        <link rel="stylesheet" type="text/css" href="/resurse/css/eroare.css"
+        <%- include("../fragmente/head") %>
+    </head>
+    <body>
+        
+    <%- include("../fragmente/header.ejs");  %> 
+
+    <main>
+        <div id="err-coloane">
+			<div id="err-imag">
+				<img src="<%- locals.imagine %>" />
+			</div>
+			<section>
+				<h2><%- locals.titlu %></h2>
+				<p><%- locals.text %></p>
+			</section>
+		</div>
+    </main>
+    
+    <%- include("../fragmente/footer.ejs");  %> 
+
+
+    </body>
+</html>

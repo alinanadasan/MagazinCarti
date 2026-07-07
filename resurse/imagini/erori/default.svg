@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#faf1e8"/>
+  <circle cx="400" cy="220" r="155" fill="#f4e5d4" stroke="#8f4620" stroke-width="12"/>
+  <text x="400" y="270" text-anchor="middle" font-family="serif" font-size="170" fill="#d35400">!</text>
+  <text x="400" y="455" text-anchor="middle" font-family="serif" font-size="50" fill="#2c1e16">A apărut o eroare</text>
+</svg>

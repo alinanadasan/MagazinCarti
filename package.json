@@ -1,0 +1,28 @@
+{
+  "name": "booknest-magazin-carti",
+  "version": "1.0.0",
+  "description": "Proiect web BookNest, librărie online realizată cu Node.js, Express și EJS.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "carti",
+    "librarie",
+    "librarie-online",
+    "BookNest",
+    "beletristica"
+  ],
+  "author": "Constanta Alina Pirlea",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^6.0.1",
+    "express": "^5.2.1",
+    "sass": "^1.101.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alinanadasan/MagazinCarti.git"
+  }
+}
+

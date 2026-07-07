@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 500">
+  <rect width="800" height="500" fill="#faf1e8"/>
+  <rect x="170" y="90" width="460" height="300" rx="28" fill="#f4e5d4" stroke="#8f4620" stroke-width="12"/>
+  <path d="M260 300h280M300 220h200" stroke="#d35400" stroke-width="22" stroke-linecap="round"/>
+  <circle cx="315" cy="155" r="18" fill="#5a3727"/><circle cx="485" cy="155" r="18" fill="#5a3727"/>
+  <text x="400" y="455" text-anchor="middle" font-family="serif" font-size="52" fill="#2c1e16">400 — Cerere invalidă</text>
+</svg>
