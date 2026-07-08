@@ -3,6 +3,7 @@ const path= require("path");
 const fs = require("fs");
 const sass = require("sass");
 const sharp = require("sharp");
+const { Pool } = require("pg");
 
 app= express();
 app.set("view engine", "ejs")
@@ -13,6 +14,13 @@ obGlobal={
     folderScss: path.join(__dirname,"resurse/scss"),
     folderCss: path.join(__dirname,"resurse/css"),
     folderBackup: path.join(__dirname,"backup"),
+    pool:new Pool({
+        database:"cti_2026",
+        user:"alina",
+        password:"alina",
+        host:"localhost",
+        port:5432
+})    
 }
 
 console.log("Folder index.js", __dirname);
@@ -31,6 +39,18 @@ app.use("/resurse",express.static(path.join(__dirname, "resurse")));
 
 app.get("/favicon.ico", function(req, res){
     res.sendFile(path.join(__dirname,"resurse", "ico", "favicon.ico"))
+});
+
+app.use(async function(req, res, next){
+    try{
+        res.locals.categoriiCarti = await obtineCategoriiCarti();
+    }
+    catch(err){
+        console.error("Nu s-au putut prelua categoriile de carti:", err.message);
+        res.locals.categoriiCarti = [];
+    }
+
+    next();
 });
 
 app.get(["/", "/index","/home"], async function(req, res){
@@ -340,7 +360,6 @@ function verificaErori(){
     return erori;
 }
 
-
 function initErori(){
     let erori = verificaErori();
 
@@ -361,8 +380,50 @@ function initErori(){
     }
 }
 
-initErori()
+function etichetaCategorie(categorie){
+    if (!categorie){
+        return "";
+    }
 
+    return categorie
+        .replaceAll("_", " ")
+        .replace(/\b\w/g, function(litera){
+            return litera.toUpperCase();
+        });
+}
+
+function formatDataRomana(data){
+    let dataObj = data instanceof Date ? data : new Date(data);
+
+    return new Intl.DateTimeFormat("ro-RO", {
+        weekday: "long",
+        day: "numeric",
+        month: "long",
+        year: "numeric"
+    }).format(dataObj);
+}
+
+function dataPentruDatetime(data){
+    let dataObj = data instanceof Date ? data : new Date(data);
+
+    return dataObj.toISOString().split("T")[0];
+}
+
+async function obtineCategoriiCarti(){
+    let rezultat = await obGlobal.pool.query(
+        "SELECT unnest(enum_range(NULL::categ_carte))::text AS categorie"
+    );
+
+    return rezultat.rows.map(function(rand){
+        return rand.categorie;
+    });
+}
+
+app.locals.etichetaCategorie = etichetaCategorie;
+app.locals.formatDataRomana = formatDataRomana;
+app.locals.dataPentruDatetime = dataPentruDatetime;
+
+initErori();
 function obtinePerioadaCurenta(){
     let dataCurenta = new Date();
     let ora = dataCurenta.getHours();
@@ -594,6 +655,14 @@ function compileazaScss(caleScss, caleCss){
     
 }
 
+/*client.query("select * from carti where id>3", function(err, rez){
+    if (err){
+        console.log("Eroare", err)
+    }
+    else{
+        console.log(rez)
+    }
+})*/
 
 //la pornirea serverului
 let vFisiere=fs.readdirSync(obGlobal.folderScss);
@@ -621,8 +690,99 @@ fs.watch(obGlobal.folderScss, function(eveniment, numeFis){
     }
 });
 
+
 app.get("/eroare", function(req, res){
     afisareEroare(res, 404, "Titlu!!!")
+});
+
+app.get("/produse", async function(req, res){
+    try{
+        let categorie = req.query.categorie;
+        let categorii = await obtineCategoriiCarti();
+
+        let querySql = `
+            SELECT 
+                id,
+                nume,
+                descriere,
+                pret,
+                numar_pagini,
+                categorie::text,
+                format::text,
+                limba::text,
+                teme,
+                include_semn_carte,
+                imagine,
+                data_adaugare
+            FROM carti
+        `;
+
+        let valoriQuery = [];
+
+        if (categorie && categorie !== "toate" && categorii.includes(categorie)){
+            querySql += " WHERE categorie = $1";
+            valoriQuery.push(categorie);
+        }
+        else{
+            categorie = "toate";
+        }
+
+        querySql += " ORDER BY id";
+
+        let rezultat = await obGlobal.pool.query(querySql, valoriQuery);
+
+        res.render("pagini/produse", {
+            produse: rezultat.rows,
+            categorieSelectata: categorie
+        });
+    }
+    catch(err){
+        console.error("Eroare la afisarea produselor:", err.message);
+        afisareEroare(res);
+    }
+});
+
+app.get("/produs/:id", async function(req, res){
+    try{
+        let rezultat = await obGlobal.pool.query(
+            `
+            SELECT 
+                id,
+                nume,
+                autor,
+                descriere,
+                pret,
+                numar_pagini,
+                categorie::text,
+                format::text,
+                limba::text,
+                teme,
+                include_semn_carte,
+                imagine,
+                editura,
+                isbn,
+                stoc,
+                data_publicare,
+                data_adaugare
+            FROM carti
+            WHERE id = $1
+            `,
+            [req.params.id]
+        );
+
+        if (rezultat.rows.length === 0){
+            afisareEroare(res, 404);
+            return;
+        }
+
+        res.render("pagini/produs", {
+            produs: rezultat.rows[0]
+        });
+    }
+    catch(err){
+        console.error("Eroare la afisarea produsului:", err.message);
+        afisareEroare(res);
+    }
 });
 
 app.get("/*pagina", async function(req, res){

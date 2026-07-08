@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <title>Produse BookNest</title>
+    <meta name="description" content="Catalogul de cărți BookNest cu produse filtrabile după categorie, preț, limbă, teme și alte caracteristici.">
+    <meta name="keywords" content="BookNest, produse, cărți, catalog cărți, librărie online, filtre cărți">
+
+    <%- include("../fragmente/head") %>
+</head>
+<body>
+    <%- include("../fragmente/header") %>
+
+    <main class="pagina-produse">
+        <section class="zona">
+            <h2>Catalog de cărți</h2>
+
+            <% if (locals.categorieSelectata && categorieSelectata !== "toate") { %>
+                <p>
+                    Sunt afișate cărțile din categoria:
+                    <strong><%= etichetaCategorie(categorieSelectata) %></strong>.
+                </p>
+            <% } else { %>
+                <p>
+                    Sunt afișate toate cărțile disponibile în catalogul BookNest.
+                </p>
+            <% } %>
+        </section>
+
+        <section class="zona filtre-produse">
+            <h2>Filtrare rapidă</h2>
+
+            <div class="campuri-filtrare">
+                <label>
+                    Text în nume:
+                    <input type="text" id="filtru-nume" placeholder="ex: bibliotecă">
+                </label>
+
+                <label>
+                    Preț maxim:
+                    <input type="number" id="filtru-pret-max" min="0" step="1">
+                </label>
+
+                <label>
+                    Minimum pagini:
+                    <input type="number" id="filtru-pagini-min" min="0" step="1">
+                </label>
+
+                <label>
+                    Limba:
+                    <select id="filtru-limba">
+                        <option value="">Toate</option>
+                        <option value="romana">Română</option>
+                        <option value="engleza">Engleză</option>
+                        <option value="franceza">Franceză</option>
+                    </select>
+                </label>
+
+                <label>
+                    Include semn de carte:
+                    <select id="filtru-semn">
+                        <option value="">Nu contează</option>
+                        <option value="true">Da</option>
+                        <option value="false">Nu</option>
+                    </select>
+                </label>
+            </div>
+        </section>
+
+        <section id="lista-produse" class="grid-produse">
+            <% for (let carte of produse) { %>
+                <article
+                    id="artc-<%= carte.id %>"
+                    class="produs-card <%= carte.categorie %>"
+                    data-nume="<%= carte.nume.toLowerCase() %>"
+                    data-pret="<%= carte.pret %>"
+                    data-pagini="<%= carte.numar_pagini %>"
+                    data-limba="<%= carte.limba %>"
+                    data-semn="<%= carte.include_semn_carte %>"
+                    data-teme="<%= carte.teme ? carte.teme.join(',').toLowerCase() : '' %>">
+
+                    <h3>
+                        <a href="/produs/<%= carte.id %>">
+                            <%= carte.nume %>
+                        </a>
+                    </h3>
+
+                    <div class="continut-produs">
+                        <div class="coloana-produs-imagine">
+                            <img
+                                src="<%= carte.imagine || '/resurse/imagini/coperta-mica.png' %>"
+                                alt="Coperta cărții <%= carte.nume %>">
+
+                            <ul class="lista-caracteristici">
+                                <li>
+                                    <strong>Preț:</strong>
+                                    <span><%= Number(carte.pret).toFixed(2) %> RON</span>
+                                </li>
+
+                                <li>
+                                    <strong>Pagini:</strong>
+                                    <span><%= carte.numar_pagini %></span>
+                                </li>
+
+                                <li>
+                                    <strong>Limbă:</strong>
+                                    <span><%= etichetaCategorie(carte.limba) %></span>
+                                </li>
+
+                                <li>
+                                    <strong>Teme:</strong>
+                                    <span><%= carte.teme ? carte.teme.join(", ") : "—" %></span>
+                                </li>
+
+                                <li>
+                                    <strong>Adăugată:</strong>
+                                    <time datetime="<%= dataPentruDatetime(carte.data_adaugare) %>">
+                                        <%= formatDataRomana(carte.data_adaugare) %>
+                                    </time>
+                                </li>
+
+                                <li>
+                                    <strong>Semn de carte:</strong>
+                                    <span><%= carte.include_semn_carte ? "Da" : "Nu" %></span>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="coloana-produs-info">
+                            <p class="categorie-produs">
+                                <strong>Categorie:</strong>
+                                <span><%= etichetaCategorie(carte.categorie) %></span>
+                            </p>
+
+                            <p>
+                                <%= carte.descriere %>
+                            </p>
+
+                            <p>
+                                <a class="buton-detalii-produs" href="/produs/<%= carte.id %>">
+                                    Vezi detalii
+                                </a>
+                            </p>
+                        </div>
+                    </div>
+                </article>
+            <% } %>
+        </section>
+    </main>
+
+    <%- include("../fragmente/footer") %>
+
+    <script src="/resurse/js/produse.js"></script>
+</body>
+</html>

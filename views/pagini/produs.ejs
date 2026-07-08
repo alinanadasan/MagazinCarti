@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <title><%= produs.nume %> - BookNest</title>
+    <meta name="description" content="Detalii despre cartea <%= produs.nume %> din librăria online BookNest.">
+    <meta name="keywords" content="BookNest, <%= produs.nume %>, carte, detalii carte, librărie online">
+
+    <%- include("../fragmente/head") %>
+</head>
+<body>
+    <%- include("../fragmente/header") %>
+
+    <main class="pagina-produs-unic">
+        <article class="zona produs-unic <%= produs.categorie %>" id="artc-<%= produs.id %>">
+            <h2><%= produs.nume %></h2>
+
+            <div class="continut-produs-unic">
+                <div class="imagine-produs-unic">
+                    <img
+                        src="<%= produs.imagine || '/resurse/imagini/coperta-mica.png' %>"
+                        alt="Coperta cărții <%= produs.nume %>">
+                </div>
+
+                <div class="detalii-produs-unic">
+                    <p>
+                        <strong>Autor:</strong>
+                        <span><%= produs.autor %></span>
+                    </p>
+
+                    <p>
+                        <strong>Descriere:</strong>
+                        <span><%= produs.descriere %></span>
+                    </p>
+
+                    <p>
+                        <strong>Preț:</strong>
+                        <span><%= Number(produs.pret).toFixed(2) %> RON</span>
+                    </p>
+
+                    <p>
+                        <strong>Categorie:</strong>
+                        <span><%= etichetaCategorie(produs.categorie) %></span>
+                    </p>
+
+                    <p>
+                        <strong>Format:</strong>
+                        <span><%= etichetaCategorie(produs.format) %></span>
+                    </p>
+
+                    <p>
+                        <strong>Limbă:</strong>
+                        <span><%= etichetaCategorie(produs.limba) %></span>
+                    </p>
+
+                    <p>
+                        <strong>Număr pagini:</strong>
+                        <span><%= produs.numar_pagini %></span>
+                    </p>
+
+                    <p>
+                        <strong>Teme:</strong>
+                        <span><%= produs.teme ? produs.teme.join(", ") : "—" %></span>
+                    </p>
+
+                    <p>
+                        <strong>Include semn de carte:</strong>
+                        <span><%= produs.include_semn_carte ? "Da" : "Nu" %></span>
+                    </p>
+
+                    <p>
+                        <strong>Editură:</strong>
+                        <span><%= produs.editura || "—" %></span>
+                    </p>
+
+                    <p>
+                        <strong>ISBN:</strong>
+                        <span><%= produs.isbn || "—" %></span>
+                    </p>
+
+                    <p>
+                        <strong>Stoc:</strong>
+                        <span><%= produs.stoc %> exemplare</span>
+                    </p>
+
+                    <% if (produs.data_publicare) { %>
+                        <p>
+                            <strong>Data publicării:</strong>
+                            <time datetime="<%= dataPentruDatetime(produs.data_publicare) %>">
+                                <%= formatDataRomana(produs.data_publicare) %>
+                            </time>
+                        </p>
+                    <% } %>
+
+                    <p>
+                        <strong>Adăugată în catalog:</strong>
+                        <time datetime="<%= dataPentruDatetime(produs.data_adaugare) %>">
+                            <%= formatDataRomana(produs.data_adaugare) %>
+                        </time>
+                    </p>
+
+                    <p>
+                        <a class="buton-detalii-produs" href="/produse">
+                            Înapoi la produse
+                        </a>
+                    </p>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <%- include("../fragmente/footer") %>
+</body>
+</html>
