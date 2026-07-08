@@ -34,8 +34,11 @@ app.get("/favicon.ico", function(req, res){
 });
 
 app.get(["/", "/index","/home"], function(req, res){
+    let galerie = await obtineGalerieStatica();
+
     res.render("pagini/index", {
-        ip: req.ip
+        ip: req.ip,
+        galerie: galerie
     });
 });
 
@@ -605,7 +608,7 @@ app.get("/eroare", function(req, res){
     afisareEroare(res, 404, "Titlu!!!")
 });
 
-app.get("/*pagina", function(req, res){
+app.get("/*pagina", async function(req, res){
     console.log("Cale pagina", req.url);
     if (req.url.startsWith("/resurse") && path.extname(req.url)==""){
         afisareEroare(res,403);
@@ -616,7 +619,15 @@ app.get("/*pagina", function(req, res){
         return;
     }
     try{
-        res.render("pagini"+req.url, function(err, rezRandare){
+        let datePagina = {
+            ip: req.ip
+        };
+
+        if (req.url === "/galerie"){
+            datePagina.galerie = await obtineGalerieStatica();
+        }
+
+        res.render("pagini" + req.url, datePagina, function(err, rezRandare){
             if (err){
                 if (err.message.startsWith("Failed to lookup view")){
                     afisareEroare(res, 404)
