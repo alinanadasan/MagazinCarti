@@ -42,14 +42,14 @@
             "licenta": "imagine proprie"
         },
         {
-            "cale_relativa": "galerie-carti-06.jpg",
+            "cale_relativa": "galerie-carti-06_policy_ccy.jpg",
             "nume": "Carte deschisă",
             "descriere": "Imagine CC-BY cu o carte deschisă, folosită cu atribuire.",
             "alt": "Carte deschisă",
-            "timp": "dimineata",
+            "timp": "zi",
             "licenta": "CC BY 2.0",
-            "autor": "Tulane Public Relations",
-            "sursa": "https://commons.wikimedia.org/wiki/File:Open_Book_Policy_(5914169915).jpg"
+            "autor": "Alex Proimos",
+            "sursa": "https://commons.wikimedia.org/wiki/File:Open_Book_Policy_(5914169915)_(cropped2).jpg"
         },
 
         {
@@ -57,7 +57,7 @@
             "nume": "Noutăți editoriale",
             "descriere": "Selecție de titluri noi pentru cititorii BookNest.",
             "alt": "Cărți noi pregătite pentru cititori",
-            "timp": "zi",
+            "timp": "dimineata",
             "licenta": "imagine proprie"
         },
         {
