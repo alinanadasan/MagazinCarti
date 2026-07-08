@@ -2,8 +2,8 @@
 <html lang="ro">
 <head>
     <title>Produse BookNest</title>
-    <meta name="description" content="Catalogul de cărți BookNest cu produse filtrabile după categorie, preț, limbă, teme și alte caracteristici.">
-    <meta name="keywords" content="BookNest, produse, cărți, catalog cărți, librărie online, filtre cărți">
+    <meta name="description" content="Catalogul de cărți BookNest cu filtre după nume, descriere, autor, preț, format, limbă, teme și noutăți.">
+    <meta name="keywords" content="BookNest, produse, cărți, catalog, filtre, librărie online">
 
     <%- include("../fragmente/head") %>
 </head>
@@ -26,43 +26,146 @@
             <% } %>
         </section>
 
-        <section class="zona filtre-produse">
-            <h2>Filtrare rapidă</h2>
+        <% 
+            let preturi = produse.map(function(carte){
+                return Number(carte.pret);
+            });
+
+            let pretMin = preturi.length ? Math.floor(Math.min(...preturi)) : 0;
+            let pretMax = preturi.length ? Math.ceil(Math.max(...preturi)) : 100;
+
+            let autori = [...new Set(produse.map(function(carte){
+                return carte.autor;
+            }).filter(Boolean))].sort();
+
+            let formate = [...new Set(produse.map(function(carte){
+                return carte.format;
+            }).filter(Boolean))].sort();
+
+            let limbi = [...new Set(produse.map(function(carte){
+                return carte.limba;
+            }).filter(Boolean))].sort();
+
+            let teme = [...new Set(produse.flatMap(function(carte){
+                return carte.teme || [];
+            }))].sort();
+        %>
+
+        <section class="zona filtre-produse" id="sectiune-filtre-produse">
+            <h2>Filtrează cărțile</h2>
+
+            <p class="explicatie-filtre">
+                Completează filtrele de mai jos pentru a afișa doar cărțile care corespund criteriilor alese.
+            </p>
 
             <div class="campuri-filtrare">
-                <label>
-                    Text în nume:
-                    <input type="text" id="filtru-nume" placeholder="ex: bibliotecă">
+                <label for="filtru-nume-start">
+                    Numele începe cu:
+                    <textarea
+                        id="filtru-nume-start"
+                        rows="2"
+                        placeholder="ex: Misterul"></textarea>
                 </label>
 
-                <label>
-                    Preț maxim:
-                    <input type="number" id="filtru-pret-max" min="0" step="1">
+                <label for="filtru-cuvant-descriere">
+                    Cuvânt în descriere:
+                    <input
+                        type="text"
+                        id="filtru-cuvant-descriere"
+                        placeholder="ex: bibliotecă">
                 </label>
 
-                <label>
-                    Minimum pagini:
-                    <input type="number" id="filtru-pagini-min" min="0" step="1">
+                <label for="filtru-autor">
+                    Autor:
+                    <input
+                        type="text"
+                        id="filtru-autor"
+                        list="lista-autori"
+                        placeholder="alege sau scrie autorul">
                 </label>
 
-                <label>
-                    Limba:
+                <datalist id="lista-autori">
+                    <% for (let autor of autori) { %>
+                        <option value="<%= autor %>"></option>
+                    <% } %>
+                </datalist>
+
+                <div class="camp-range">
+                    <label for="filtru-pret">
+                        Preț maxim:
+                        <span id="valoare-pret-selectat"><%= pretMax %></span> RON
+                    </label>
+
+                    <div class="linie-range">
+                        <span><%= pretMin %></span>
+
+                        <input
+                            type="range"
+                            id="filtru-pret"
+                            min="<%= pretMin %>"
+                            max="<%= pretMax %>"
+                            value="<%= pretMax %>">
+
+                        <span><%= pretMax %></span>
+                    </div>
+                </div>
+
+                <fieldset class="grup-radio-filtru">
+                    <legend>Format carte</legend>
+
+                    <label>
+                        <input type="radio" name="filtru-format" value="" checked>
+                        Orice format
+                    </label>
+
+                    <% for (let format of formate) { %>
+                        <label>
+                            <input type="radio" name="filtru-format" value="<%= format %>">
+                            <%= etichetaCategorie(format) %>
+                        </label>
+                    <% } %>
+                </fieldset>
+
+                <label class="camp-checkbox-noutati" for="filtru-noutati">
+                    <input type="checkbox" id="filtru-noutati">
+                    noutăți
+                </label>
+
+                <label for="filtru-limba">
+                    Limbă:
                     <select id="filtru-limba">
-                        <option value="">Toate</option>
-                        <option value="romana">Română</option>
-                        <option value="engleza">Engleză</option>
-                        <option value="franceza">Franceză</option>
+                        <option value="">Oricare</option>
+
+                        <% for (let limba of limbi) { %>
+                            <option value="<%= limba %>">
+                                <%= etichetaCategorie(limba) %>
+                            </option>
+                        <% } %>
                     </select>
                 </label>
 
-                <label>
-                    Include semn de carte:
-                    <select id="filtru-semn">
-                        <option value="">Nu contează</option>
-                        <option value="true">Da</option>
-                        <option value="false">Nu</option>
+                <label for="filtru-teme">
+                    Teme:
+                    <select id="filtru-teme" multiple size="5">
+                        <% for (let tema of teme) { %>
+                            <option value="<%= tema %>"><%= tema %></option>
+                        <% } %>
                     </select>
+                    <span class="indiciu-select-multiplu">
+                        Ține apăsat Ctrl pentru mai multe opțiuni.
+                    </span>
                 </label>
+            </div>
+
+            <div class="butoane-filtrare">
+                <button type="button" id="resetare-filtre">
+                    Resetează filtrele
+                </button>
+
+                <p id="mesaj-produse-afisate">
+                    Se afișează <span id="numar-produse-afisate"><%= produse.length %></span>
+                    din <%= produse.length %> produse.
+                </p>
             </div>
         </section>
 
@@ -71,12 +174,15 @@
                 <article
                     id="artc-<%= carte.id %>"
                     class="produs-card <%= carte.categorie %>"
-                    data-nume="<%= carte.nume.toLowerCase() %>"
-                    data-pret="<%= carte.pret %>"
-                    data-pagini="<%= carte.numar_pagini %>"
+                    data-nume="<%= (carte.nume || '').toLowerCase() %>"
+                    data-descriere="<%= (carte.descriere || '').toLowerCase() %>"
+                    data-autor="<%= (carte.autor || '').toLowerCase() %>"
+                    data-pret="<%= Number(carte.pret) %>"
+                    data-format="<%= carte.format %>"
                     data-limba="<%= carte.limba %>"
+                    data-teme="<%= carte.teme ? carte.teme.join('|').toLowerCase() : '' %>"
                     data-semn="<%= carte.include_semn_carte %>"
-                    data-teme="<%= carte.teme ? carte.teme.join(',').toLowerCase() : '' %>">
+                    data-adaugare="<%= dataPentruDatetime(carte.data_adaugare) %>">
 
                     <h3>
                         <a href="/produs/<%= carte.id %>">
@@ -126,12 +232,22 @@
                         </div>
 
                         <div class="coloana-produs-info">
+                            <p class="autor-produs">
+                                <strong>Autor:</strong>
+                                <span><%= carte.autor || "—" %></span>
+                            </p>
+
                             <p class="categorie-produs">
                                 <strong>Categorie:</strong>
                                 <span><%= etichetaCategorie(carte.categorie) %></span>
                             </p>
 
-                            <p>
+                            <p class="format-produs">
+                                <strong>Format:</strong>
+                                <span><%= etichetaCategorie(carte.format) %></span>
+                            </p>
+
+                            <p class="descriere-produs">
                                 <%= carte.descriere %>
                             </p>
 

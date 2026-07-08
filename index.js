@@ -704,6 +704,7 @@ app.get("/produse", async function(req, res){
             SELECT 
                 id,
                 nume,
+                autor,
                 descriere,
                 pret,
                 numar_pagini,

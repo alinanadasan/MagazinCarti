@@ -3,13 +3,24 @@
     margin-top: var(--gap-grid);
 }
 
-.filtre-produse .campuri-filtrare{
-    display: grid;
-    grid-template-columns: repeat(5, minmax(10rem, 1fr));
-    gap: 1rem;
+.explicatie-filtre{
+    margin-bottom: 1rem;
 }
 
-.filtre-produse label{
+.filtre-produse{
+    margin-bottom: var(--gap-grid);
+}
+
+.campuri-filtrare{
+    display: grid;
+    grid-template-columns: repeat(4, minmax(12rem, 1fr));
+    gap: 1rem;
+    align-items: start;
+}
+
+.campuri-filtrare label,
+.camp-range,
+.grup-radio-filtru{
     display: flex;
     flex-direction: column;
     gap: 0.35rem;
@@ -17,13 +28,94 @@
     color: var(--culoare-accent);
 }
 
-.filtre-produse input,
-.filtre-produse select{
+.campuri-filtrare input,
+.campuri-filtrare textarea,
+.campuri-filtrare select{
+    width: 100%;
     padding: 0.55rem 0.7rem;
     border: 0.08rem solid var(--culoare-contur);
     border-radius: 0.6rem;
     background-color: var(--culoare-deschisa);
     color: var(--culoare-text);
+    font: inherit;
+}
+
+.campuri-filtrare textarea{
+    resize: vertical;
+    min-height: 4rem;
+}
+
+.linie-range{
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    gap: 0.6rem;
+    align-items: center;
+    font-weight: 400;
+    color: var(--culoare-text);
+}
+
+.linie-range input[type="range"]{
+    padding: 0;
+}
+
+.grup-radio-filtru{
+    border: 0.08rem solid var(--culoare-contur);
+    border-radius: 0.7rem;
+    padding: 0.75rem;
+    background-color: var(--culoare-suprafata);
+}
+
+.grup-radio-filtru legend{
+    padding: 0 0.35rem;
+    color: var(--culoare-accent);
+    font-weight: 700;
+}
+
+.grup-radio-filtru label,
+.camp-checkbox-noutati{
+    flex-direction: row;
+    align-items: center;
+    font-weight: 400;
+    color: var(--culoare-text);
+}
+
+.grup-radio-filtru input,
+.camp-checkbox-noutati input{
+    width: auto;
+}
+
+.indiciu-select-multiplu{
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--culoare-text);
+}
+
+.butoane-filtrare{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    align-items: center;
+    margin-top: 1.2rem;
+}
+
+#resetare-filtre{
+    padding: 0.6rem 1rem;
+    border: 0;
+    border-radius: 0.7rem;
+    background-color: var(--culoare-accent);
+    color: var(--culoare-deschisa);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+#resetare-filtre:hover{
+    background-color: var(--culoare-principala);
+}
+
+#mesaj-produse-afisate{
+    margin: 0;
+    font-weight: 700;
+    color: var(--culoare-accent);
 }
 
 .grid-produse{
@@ -50,6 +142,10 @@
     text-decoration: none;
 }
 
+.produs-card h3 a:hover{
+    text-decoration: underline;
+}
+
 .continut-produs{
     display: grid;
     grid-template-columns: minmax(10rem, 14rem) 1fr;
@@ -74,12 +170,15 @@
 }
 
 .lista-caracteristici li,
-.detalii-produs-unic p{
+.detalii-produs-unic p,
+.coloana-produs-info p{
     margin-bottom: 0.55rem;
 }
 
 .lista-caracteristici strong,
+.autor-produs strong,
 .categorie-produs strong,
+.format-produs strong,
 .detalii-produs-unic strong{
     padding: 0.08rem 0.35rem;
     border-radius: 0.35rem;
@@ -87,9 +186,15 @@
     color: var(--culoare-accent);
 }
 
-.categorie-produs span{
+.categorie-produs span,
+.format-produs span,
+.autor-produs span{
     font-weight: 700;
     color: var(--culoare-principala);
+}
+
+.descriere-produs{
+    line-height: 1.6;
 }
 
 .buton-detalii-produs{
@@ -121,8 +226,8 @@
 }
 
 @media screen and (max-width: 1350px){
-    .filtre-produse .campuri-filtrare{
-        grid-template-columns: repeat(2, minmax(10rem, 1fr));
+    .campuri-filtrare{
+        grid-template-columns: repeat(2, minmax(12rem, 1fr));
     }
 
     .grid-produse{
@@ -131,9 +236,14 @@
 }
 
 @media screen and (max-width: 768px){
-    .filtre-produse .campuri-filtrare,
+    .campuri-filtrare,
     .continut-produs,
     .continut-produs-unic{
         grid-template-columns: 1fr;
+    }
+
+    .butoane-filtrare{
+        align-items: flex-start;
+        flex-direction: column;
     }
 }
