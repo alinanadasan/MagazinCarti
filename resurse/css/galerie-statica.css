@@ -1,5 +1,6 @@
 .galerie-statica{
     width: 100%;
+    grid-column: 1 / -1;
 }
 
 .grid-galerie-statica{
@@ -101,6 +102,7 @@
     }
 
     .grid-galerie-statica figure:hover img{
-        transform: rotate(360deg) scale(1.15);
+        transform: rotate(360deg) scale(1.5);
+        border-radius: 50%;
     }
 }
