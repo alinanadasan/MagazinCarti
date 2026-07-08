@@ -360,6 +360,180 @@ function initErori(){
 
 initErori()
 
+function obtinePerioadaCurenta(){
+    let dataCurenta = new Date();
+    let ora = dataCurenta.getHours();
+
+    if (ora >= 5 && ora < 12){
+        return "dimineata";
+    }
+
+    if (ora >= 12 && ora < 20){
+        return "zi";
+    }
+
+    return "noapte";
+}
+
+async function genereazaImagineGalerie(caleSursa, caleDestinatie, latime, inaltime){
+    if (fs.existsSync(caleDestinatie)){
+        return;
+    }
+
+    await sharp(caleSursa)
+        .resize(latime, inaltime, {
+            fit: "cover"
+        })
+        .toFile(caleDestinatie);
+}
+
+async function obtineGalerieStatica(){
+    let caleJson = path.join(
+        __dirname,
+        "resurse",
+        "json",
+        "galerie.json"
+    );
+
+    let continut = fs
+        .readFileSync(caleJson)
+        .toString("utf-8");
+
+    let galerie = JSON.parse(continut);
+
+    let caleGalerieUrl = galerie.cale_galerie;
+
+    let caleGalerieDisc = path.join(
+        __dirname,
+        caleGalerieUrl.replace(/^[/\\]+/, "")
+    );
+
+    let caleOriginale = path.join(
+        caleGalerieDisc,
+        "originale"
+    );
+
+    let caleMare = path.join(
+        caleGalerieDisc,
+        "mare"
+    );
+
+    let caleMediu = path.join(
+        caleGalerieDisc,
+        "mediu"
+    );
+
+    let caleMic = path.join(
+        caleGalerieDisc,
+        "mic"
+    );
+
+    fs.mkdirSync(caleMare, { recursive: true });
+    fs.mkdirSync(caleMediu, { recursive: true });
+    fs.mkdirSync(caleMic, { recursive: true });
+
+    for (let imagine of galerie.imagini){
+        let caleOriginala = path.join(
+            caleOriginale,
+            imagine.cale_relativa
+        );
+
+        let caleImagineMare = path.join(
+            caleMare,
+            imagine.cale_relativa
+        );
+
+        let caleImagineMediu = path.join(
+            caleMediu,
+            imagine.cale_relativa
+        );
+
+        let caleImagineMic = path.join(
+            caleMic,
+            imagine.cale_relativa
+        );
+
+        if (!fs.existsSync(caleOriginala)){
+            console.warn(
+                "Imagine lipsa pentru galerie:",
+                caleOriginala
+            );
+
+            continue;
+        }
+
+        await genereazaImagineGalerie(
+            caleOriginala,
+            caleImagineMare,
+            480,
+            320
+        );
+
+        await genereazaImagineGalerie(
+            caleOriginala,
+            caleImagineMediu,
+            360,
+            240
+        );
+
+        await genereazaImagineGalerie(
+            caleOriginala,
+            caleImagineMic,
+            240,
+            160
+        );
+
+        imagine.cale_mare = path.posix.join(
+            caleGalerieUrl,
+            "mare",
+            imagine.cale_relativa
+        );
+
+        imagine.cale_mediu = path.posix.join(
+            caleGalerieUrl,
+            "mediu",
+            imagine.cale_relativa
+        );
+
+        imagine.cale_mic = path.posix.join(
+            caleGalerieUrl,
+            "mic",
+            imagine.cale_relativa
+        );
+
+        imagine.alt = imagine.alt || imagine.nume;
+    }
+
+    let perioada = obtinePerioadaCurenta();
+
+    let imaginiFiltrate = galerie.imagini.filter(function(imagine){
+        return imagine.timp === perioada &&
+            imagine.cale_mare &&
+            imagine.cale_mediu &&
+            imagine.cale_mic;
+    });
+
+    let numarImagini = imaginiFiltrate.length;
+
+    numarImagini = numarImagini - numarImagini % 3;
+
+    imaginiFiltrate = imaginiFiltrate.slice(
+        0,
+        numarImagini
+    );
+
+    if (imaginiFiltrate.length < 6){
+        console.warn(
+            `Galeria are doar ${imaginiFiltrate.length} imagini pentru perioada "${perioada}". Ne trebuie 6 imagini.`
+        );
+    }
+
+    return {
+        perioada: perioada,
+        imagini: imaginiFiltrate
+    };
+}
+
 function afisareEroare(res, identificator, titlu, text, imagine){
     //TO DO cautam eroarea dupa identificator
     let eroare= obGlobal.obErori.info_erori.find((elem) => 

@@ -1,0 +1,106 @@
+.galerie-statica{
+    width: 100%;
+}
+
+.grid-galerie-statica{
+    counter-reset: index-galerie;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-grid);
+    align-items: start;
+}
+
+.grid-galerie-statica figure{
+    counter-increment: index-galerie;
+    margin: 0;
+    padding: var(--padding-zona);
+    background-color: var(--culoare-highlight);
+    border: 0.08rem solid var(--culoare-contur);
+    border-radius: var(--raza-colt);
+    box-shadow: var(--umbra-card);
+    position: relative;
+    z-index: 1;
+}
+
+.grid-galerie-statica picture{
+    display: block;
+    overflow: visible;
+}
+
+.grid-galerie-statica img{
+    width: 100%;
+    aspect-ratio: 3 / 2;
+    object-fit: cover;
+    display: block;
+    border: 0.08rem solid var(--culoare-contur);
+    border-radius: 0.8rem;
+    background-color: var(--culoare-deschisa);
+    transform: rotate(0deg) scale(1);
+    transition:
+        transform 0.7s ease,
+        border-radius 0.7s ease;
+}
+
+.grid-galerie-statica figure:hover{
+    z-index: 10;
+}
+
+.grid-galerie-statica figure:hover img{
+    transform: rotate(360deg) scale(1.5);
+    border-radius: 50%;
+}
+
+.grid-galerie-statica figcaption{
+    margin-top: 0.8rem;
+    color: var(--culoare-inchisa);
+    font-style: normal;
+}
+
+.grid-galerie-statica figcaption::before{
+    content: counter(index-galerie, upper-alpha) ". ";
+    font-weight: 700;
+    color: var(--culoare-principala);
+}
+
+.atribuire-galerie{
+    display: block;
+    margin-top: 0.5rem;
+    color: var(--culoare-text);
+    font-size: 0.85rem;
+}
+
+.pagina-galerie{
+    display: block;
+}
+
+@media screen and (max-width: 1350px) and (min-width: 769px){
+    .grid-galerie-statica{
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .grid-galerie-statica figure:nth-child(3n + 1){
+        grid-column: 1;
+    }
+
+    .grid-galerie-statica figure:nth-child(3n + 2){
+        grid-column: 2;
+    }
+
+    .grid-galerie-statica figure:nth-child(3n){
+        grid-column: 2;
+    }
+}
+
+@media screen and (max-width: 768px){
+    .grid-galerie-statica{
+        grid-template-columns: 1fr;
+    }
+
+    .grid-galerie-statica figure{
+        grid-column: auto !important;
+    }
+
+    .grid-galerie-statica figure:hover img{
+        transform: rotate(360deg) scale(1.15);
+    }
+}

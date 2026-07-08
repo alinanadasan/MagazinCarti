@@ -1,0 +1,153 @@
+{
+    "cale_galerie": "/resurse/imagini/galerie",
+    "imagini": [
+        {
+            "cale_relativa": "galerie-carti-01.jpg",
+            "nume": "Rafturi cu povești",
+            "descriere": "Cărți așezate pe rafturi luminoase, potrivite pentru începutul zilei.",
+            "alt": "Rafturi cu multe cărți colorate",
+            "timp": "dimineata",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-02.jpg",
+            "nume": "Lectură la cafea",
+            "descriere": "Un moment liniștit de citit, lângă o cană caldă.",
+            "alt": "Carte deschisă lângă o cană",
+            "timp": "dimineata",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-03.jpg",
+            "nume": "Copertă de roman",
+            "descriere": "O copertă de carte recomandată cititorilor BookNest.",
+            "alt": "Copertă de roman",
+            "timp": "dimineata",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-04.jpg",
+            "nume": "Semn de carte",
+            "descriere": "Semn de carte ilustrat pentru pauze de lectură.",
+            "alt": "Semn de carte cu ilustrație de lectură",
+            "timp": "dimineata",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-05.jpg",
+            "nume": "Bibliotecă de acasă",
+            "descriere": "Un colț de bibliotecă pregătit pentru cititorii pasionați.",
+            "alt": "Bibliotecă de acasă cu volume așezate pe rafturi",
+            "timp": "dimineata",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-06.jpg",
+            "nume": "Carte deschisă",
+            "descriere": "Imagine CC-BY cu o carte deschisă, folosită cu atribuire.",
+            "alt": "Carte deschisă",
+            "timp": "dimineata",
+            "licenta": "CC BY 2.0",
+            "autor": "Tulane Public Relations",
+            "sursa": "https://commons.wikimedia.org/wiki/File:Open_Book_Policy_(5914169915).jpg"
+        },
+
+        {
+            "cale_relativa": "galerie-carti-07.jpg",
+            "nume": "Noutăți editoriale",
+            "descriere": "Selecție de titluri noi pentru cititorii BookNest.",
+            "alt": "Cărți noi pregătite pentru cititori",
+            "timp": "zi",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-08.jpg",
+            "nume": "Roman recomandat",
+            "descriere": "Un roman potrivit pentru lista de lectură a zilei.",
+            "alt": "Roman așezat pe masă",
+            "timp": "zi",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-09.jpg",
+            "nume": "Cărți pentru copii",
+            "descriere": "Povești ilustrate pentru micii cititori.",
+            "alt": "Cărți colorate pentru copii",
+            "timp": "zi",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-10.jpg",
+            "nume": "Literatură universală",
+            "descriere": "Volume de literatură universală pentru biblioteca personală.",
+            "alt": "Cărți de literatură universală",
+            "timp": "zi",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-11.jpg",
+            "nume": "Lectură modernă",
+            "descriere": "O carte într-un decor simplu și luminos.",
+            "alt": "Carte în decor modern",
+            "timp": "zi",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-12.jpg",
+            "nume": "Pachet promoțional",
+            "descriere": "Cărți pregătite pentru o ofertă BookNest.",
+            "alt": "Mai multe cărți așezate împreună",
+            "timp": "zi",
+            "licenta": "imagine proprie"
+        },
+
+        {
+            "cale_relativa": "galerie-carti-13.jpg",
+            "nume": "Lectură de seară",
+            "descriere": "Atmosferă caldă pentru citit seara.",
+            "alt": "Carte deschisă în lumină caldă",
+            "timp": "noapte",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-14.jpg",
+            "nume": "Pagină de roman",
+            "descriere": "Detaliu de carte pentru o lectură relaxantă.",
+            "alt": "Pagină de roman deschisă",
+            "timp": "noapte",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-15.jpg",
+            "nume": "Bibliotecă nocturnă",
+            "descriere": "Raft de cărți într-o atmosferă liniștită.",
+            "alt": "Raft de bibliotecă seara",
+            "timp": "noapte",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-16.jpg",
+            "nume": "Cartea de lângă lampă",
+            "descriere": "O carte pregătită pentru citit înainte de culcare.",
+            "alt": "Carte lângă o lampă",
+            "timp": "noapte",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-17.jpg",
+            "nume": "Semn de carte seara",
+            "descriere": "Pauză de lectură marcată cu un semn de carte.",
+            "alt": "Semn de carte într-un volum deschis",
+            "timp": "noapte",
+            "licenta": "imagine proprie"
+        },
+        {
+            "cale_relativa": "galerie-carti-18.jpg",
+            "nume": "Cuib de lectură",
+            "descriere": "Decor confortabil pentru cititorii de seară.",
+            "alt": "Colț confortabil de lectură",
+            "timp": "noapte",
+            "licenta": "imagine proprie"
+        }
+    ]
+}

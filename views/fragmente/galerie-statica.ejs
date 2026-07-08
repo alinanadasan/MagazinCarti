@@ -1,0 +1,60 @@
+<section id="galerie-statica" class="zona galerie-statica">
+    <h2>Galerie statică BookNest</h2>
+
+    <p>
+        Imaginile afișate sunt selectate automat în funcție de momentul zilei:
+        dimineața, ziua sau noaptea.
+    </p>
+
+    <% if (locals.galerie && galerie.imagini && galerie.imagini.length >= 6) { %>
+        <div class="grid-galerie-statica">
+            <% galerie.imagini.forEach(function(imagine){ %>
+                <figure>
+                    <picture>
+                        <source
+                            srcset="<%= imagine.cale_mic %>"
+                            media="(max-width: 768px)">
+
+                        <source
+                            srcset="<%= imagine.cale_mediu %>"
+                            media="(max-width: 1350px)">
+
+                        <img
+                            src="<%= imagine.cale_mare %>"
+                            alt="<%= imagine.alt %>"
+                            title="<%= imagine.descriere %>">
+                    </picture>
+
+                    <figcaption>
+                        <span><%= imagine.nume %></span> —
+                        <%= imagine.descriere %>
+                    </figcaption>
+
+                    <% if (imagine.autor || imagine.licenta || imagine.sursa) { %>
+                        <small class="atribuire-galerie">
+                            <% if (imagine.autor) { %>
+                                Autor: <%= imagine.autor %>.
+                            <% } %>
+
+                            <% if (imagine.licenta) { %>
+                                Licență: <%= imagine.licenta %>.
+                            <% } %>
+
+                            <% if (imagine.sursa) { %>
+                                Sursa:
+                                <a href="<%= imagine.sursa %>" target="_blank">
+                                    imagine originală
+                                </a>.
+                            <% } %>
+                        </small>
+                    <% } %>
+                </figure>
+            <% }); %>
+        </div>
+    <% } else { %>
+        <p>
+            Nu există suficiente imagini pentru perioada curentă.
+            Adaugă minimum 6 imagini în JSON pentru fiecare interval.
+        </p>
+    <% } %>
+</section>
