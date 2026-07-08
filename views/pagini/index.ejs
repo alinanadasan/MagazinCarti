@@ -129,9 +129,13 @@
         </section>
 
         <section id="anunturi-placeholder" class="zona zona4">
-            <h2>Anunțuri</h2>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nibh ut facilisis malesuada, mi lorem gravida sem, sit amet sagittis massa risus non mauris.</p>
-            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+            <h2>Anunțuri BookNest</h2>
+            <p>
+                Promoție activă: livrare gratuită pentru comenzile de peste 150 RON.
+            </p>
+            <p>
+                Urmărește ofertele lunii și recomandările BookNest pentru fiecare categorie de cititori.
+            </p>
         </section>
 
         <section id="utilizatori-online" class="zona zona5">
@@ -141,20 +145,78 @@
 
         <section id="statistici-librarie" class="zona zona6">
             <h2>Date despre utilizatori</h2>
-            <p>Adresa IP transmisă de cererea curentă este <strong><%- locals.ip %></strong>.</p>
-            
-            <h2>Statistici și Stocuri</h2>
-            <p>Fii la curent cu disponibilitatea celor mai dorite titluri și a locurilor la evenimentele BookNest.</p>
+
             <p>
-                Stoc pentru ediția de colecție „Misterul din Bibliotecă”:
-                <meter min="0" max="100" low="20" high="80" optimum="100" value="12" title="12 exemplare rămase din 100">12%</meter>
-                <br><small class="stoc-critic">Grăbește-te! Stoc critic.</small>
+                Adresa IP transmisă de cererea curentă este
+                <strong><%- locals.ip %></strong>.
             </p>
-            <p>
-                Locuri ocupate la atelierul de lectură pentru copii:
-                <meter min="0" max="50" low="15" high="45" optimum="50" value="48" title="48 locuri ocupate din 50">48 din 50</meter>
-                <br><small class="aproape-sold-out">Eveniment aproape sold-out!</small>
-            </p>
+
+            <div class="alert alert-cream border-primary shadow-sm" role="alert">
+                <strong>Statistici BookNest:</strong>
+                urmărește disponibilitatea titlurilor și locurile la evenimente.
+            </div>
+
+            <div class="container-fluid px-0">
+                <div class="row g-3">
+                    <div class="col-md-6">
+                        <div class="card h-100 border-primary shadow">
+                            <div class="card-body">
+                                <span class="badge text-bg-book mb-2">
+                                    Stoc critic
+                                </span>
+
+                                <h3 class="card-title h5">
+                                    Misterul din Bibliotecă
+                                </h3>
+
+                                <p class="card-text">
+                                    Stoc pentru ediția de colecție:
+                                    <strong>12 exemplare din 100</strong>.
+                                </p>
+
+                                <meter min="0" max="100" value="12">
+                                    12%
+                                </meter>
+
+                                <p class="mt-2 mb-0">
+                                    <small class="text-danger">
+                                        Grăbește-te! Stoc critic.
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="card h-100 bg-cream border-secondary shadow">
+                            <div class="card-body">
+                                <span class="badge text-bg-success mb-2">
+                                    Aproape sold-out
+                                </span>
+
+                                <h3 class="card-title h5">
+                                    Atelier de lectură pentru copii
+                                </h3>
+
+                                <p class="card-text">
+                                    Locuri ocupate:
+                                    <strong>48 din 50</strong>.
+                                </p>
+
+                                <meter min="0" max="50" value="48">
+                                    48 din 50
+                                </meter>
+
+                                <p class="mt-2 mb-0">
+                                    <small class="text-success">
+                                        Eveniment aproape sold-out!
+                                    </small>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
 
         <section id="date-site-server" class="zona zona7">
