@@ -577,17 +577,26 @@ function compileazaScss(caleScss, caleCss){
     // la acest punct avem cai absolute in caleScss si  caleCss
 
     let numeFisCss=path.basename(caleCss);
+    let caleBackupFisier = path.join(caleBackup, numeFisCss);
+
     if (fs.existsSync(caleCss)){
-        fs.copyFileSync(caleCss, path.join(obGlobal.folderBackup, "resurse/css",numeFisCss ))// +(new Date()).getTime()
+        try{
+            fs.copyFileSync(caleCss, caleBackupFisier);
+        }
+        catch(err){
+            console.error("Eroare la copierea fisierului CSS in backup:", caleCss);
+            console.error(err.message);
+        }
     }
-    rez=sass.compile(caleScss, {"sourceMap":true});
-    fs.writeFileSync(caleCss,rez.css)
+
+    let rez=sass.compile(caleScss, {"sourceMap":true});
+    fs.writeFileSync(caleCss,rez.css);
     
 }
 
 
 //la pornirea serverului
-vFisiere=fs.readdirSync(obGlobal.folderScss);
+let vFisiere=fs.readdirSync(obGlobal.folderScss);
 for( let numeFis of vFisiere ){
     if (path.extname(numeFis)==".scss"){
         compileazaScss(numeFis);
@@ -596,13 +605,21 @@ for( let numeFis of vFisiere ){
 
 
 fs.watch(obGlobal.folderScss, function(eveniment, numeFis){
+    if (!numeFis){
+        return;
+    }
+
     if (eveniment=="change" || eveniment=="rename"){
         let caleCompleta=path.join(obGlobal.folderScss, numeFis);
-        if (fs.existsSync(caleCompleta)){
+
+        if (
+            fs.existsSync(caleCompleta) &&
+            path.extname(numeFis)==".scss"
+        ){
             compileazaScss(caleCompleta);
         }
     }
-})
+});
 
 app.get("/eroare", function(req, res){
     afisareEroare(res, 404, "Titlu!!!")

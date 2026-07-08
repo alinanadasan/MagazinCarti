@@ -1,0 +1,66 @@
+$culoare-principala: #7b4b2a;
+$culoare-secundara: #c08a4a;
+$culoare-deschisa: #fff8ee;
+$culoare-inchisa: #261b16;
+$culoare-verde: #6f7d43;
+$culoare-crem: #fff0d6;
+
+@use "../../node_modules/bootstrap/scss/bootstrap.scss" with (
+    $primary: $culoare-principala,
+    $secondary: $culoare-secundara,
+    $success: $culoare-verde,
+    $info: #7fa6a0,
+    $warning: #f0b64d,
+    $danger: #a8433f,
+    $light: $culoare-deschisa,
+    $dark: $culoare-inchisa,
+
+    $body-bg: $culoare-deschisa,
+    $body-color: $culoare-inchisa,
+
+    $font-family-base: (Georgia, "Times New Roman", serif),
+
+    $headings-color: $culoare-principala,
+    $h1-font-size: 3rem,
+    $h2-font-size: 2.25rem,
+    $h3-font-size: 1.75rem,
+
+    $border-radius: 1rem,
+    $border-radius-sm: 0.5rem,
+    $border-radius-lg: 1.5rem,
+
+    $btn-border-radius: 1rem,
+    $card-border-radius: 1.25rem,
+    $box-shadow: 0 0.5rem 1.2rem rgba(38, 27, 22, 0.18),
+    $link-color: $culoare-principala,
+
+    $grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 820px,
+        lg: 1180px,
+        xl: 1400px,
+        xxl: 1600px
+    ),
+
+    $container-max-widths: (
+        sm: 540px,
+        md: 780px,
+        lg: 1120px,
+        xl: 1320px,
+        xxl: 1500px
+    ),
+
+    $theme-colors: (
+        "primary": $culoare-principala,
+        "secondary": $culoare-secundara,
+        "success": $culoare-verde,
+        "info": #7fa6a0,
+        "warning": #f0b64d,
+        "danger": #a8433f,
+        "light": $culoare-deschisa,
+        "dark": $culoare-inchisa,
+        "book": $culoare-principala,
+        "cream": $culoare-crem
+    )
+);
