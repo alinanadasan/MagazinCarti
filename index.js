@@ -33,7 +33,7 @@ app.get("/favicon.ico", function(req, res){
     res.sendFile(path.join(__dirname,"resurse", "ico", "favicon.ico"))
 });
 
-app.get(["/", "/index","/home"], function(req, res){
+app.get(["/", "/index","/home"], async function(req, res){
     let galerie = await obtineGalerieStatica();
 
     res.render("pagini/index", {
