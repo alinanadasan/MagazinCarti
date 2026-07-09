@@ -1,5 +1,4 @@
 window.addEventListener("DOMContentLoaded", function(){
-    const DATA_NOUTATI = "2024-05-01";
 
     const textareaNume = document.getElementById("filtru-nume-start");
     const inputDescriere = document.getElementById("filtru-cuvant-descriere");
@@ -7,6 +6,7 @@ window.addEventListener("DOMContentLoaded", function(){
     const rangePret = document.getElementById("filtru-pret");
     const valoarePret = document.getElementById("valoare-pret-selectat");
     const checkboxNoutati = document.getElementById("filtru-noutati");
+    const DATA_NOUTATI = checkboxNoutati.dataset.limitaNoutati || "2024-05-01";
     const selectLimba = document.getElementById("filtru-limba");
     const selectTeme = document.getElementById("filtru-teme");
 
@@ -316,7 +316,7 @@ window.addEventListener("DOMContentLoaded", function(){
 
         actualizeazaNumarProduse();
     }
-    
+
     textareaNume.addEventListener("input", corecteazaValidareLive);
     inputDescriere.addEventListener("input", corecteazaValidareLive);
     inputAutor.addEventListener("input", corecteazaValidareLive);

@@ -419,6 +419,143 @@ async function obtineCategoriiCarti(){
     });
 }
 
+async function obtineDateFiltreProduse(categorie){
+    let existaCategorie = categorie && categorie !== "toate";
+
+    let conditieCarti = existaCategorie ? " WHERE categorie::text = $1 " : "";
+    let parametri = existaCategorie ? [categorie] : [];
+
+    let rezultatStatistici = await obGlobal.pool.query(
+        `
+        SELECT
+            COALESCE(FLOOR(MIN(pret)), 0)::int AS pret_min,
+            COALESCE(CEIL(MAX(pret)), 100)::int AS pret_max,
+            COALESCE(MIN(numar_pagini), 0)::int AS pagini_min,
+            COALESCE(MAX(numar_pagini), 0)::int AS pagini_max,
+            COALESCE(
+                (MAX(data_adaugare) - INTERVAL '45 days')::date,
+                CURRENT_DATE
+            ) AS data_noutati
+        FROM carti
+        ${conditieCarti}
+        `,
+        parametri
+    );
+
+    let rezultatAutori = await obGlobal.pool.query(
+        `
+        SELECT DISTINCT autor
+        FROM carti
+        ${existaCategorie ? " WHERE categorie::text = $1 AND autor IS NOT NULL " : " WHERE autor IS NOT NULL "}
+        ORDER BY autor
+        `,
+        parametri
+    );
+
+    let rezultatFormate = await obGlobal.pool.query(
+        `
+        SELECT unnest(enum_range(NULL::format_carte))::text AS format
+        `
+    );
+
+    let rezultatLimbi = await obGlobal.pool.query(
+        `
+        SELECT unnest(enum_range(NULL::limba_carte))::text AS limba
+        `
+    );
+
+    let rezultatTeme = await obGlobal.pool.query(
+        `
+        SELECT DISTINCT tema
+        FROM carti c
+        CROSS JOIN unnest(c.teme) AS tema
+        ${existaCategorie ? " WHERE c.categorie::text = $1 " : ""}
+        ORDER BY tema
+        `,
+        parametri
+    );
+
+    let rezultatColoane = await obGlobal.pool.query(
+        `
+        SELECT column_name, character_maximum_length
+        FROM information_schema.columns
+        WHERE table_name = 'carti'
+          AND column_name IN (
+            'nume',
+            'descriere',
+            'autor',
+            'pret',
+            'format',
+            'limba',
+            'teme',
+            'data_adaugare'
+          )
+        `
+    );
+
+    let eticheteColoane = {};
+    let lungimiColoane = {};
+
+    for (let coloana of rezultatColoane.rows){
+        eticheteColoane[coloana.column_name] = etichetaCategorie(coloana.column_name);
+
+        if (coloana.character_maximum_length){
+            lungimiColoane[coloana.column_name] = coloana.character_maximum_length;
+        }
+    }
+
+    let statistici = rezultatStatistici.rows[0];
+
+    return {
+        pret: {
+            min: statistici.pret_min,
+            max: statistici.pret_max
+        },
+
+        pagini: {
+            min: statistici.pagini_min,
+            max: statistici.pagini_max
+        },
+
+        noutati: {
+            data: dataPentruDatetime(statistici.data_noutati)
+        },
+
+        autori: rezultatAutori.rows.map(function(rand){
+            return rand.autor;
+        }),
+
+        formate: rezultatFormate.rows.map(function(rand){
+            return rand.format;
+        }),
+
+        limbi: rezultatLimbi.rows.map(function(rand){
+            return rand.limba;
+        }),
+
+        teme: rezultatTeme.rows.map(function(rand){
+            return rand.tema;
+        }),
+
+        etichete: {
+            nume: (eticheteColoane.nume || "Nume") + " începe cu",
+            descriere: "Cuvânt în " + (eticheteColoane.descriere || "descriere"),
+            autor: eticheteColoane.autor || "Autor",
+            pret: eticheteColoane.pret || "Preț",
+            format: eticheteColoane.format || "Format carte",
+            limba: eticheteColoane.limba || "Limbă",
+            teme: eticheteColoane.teme || "Teme",
+            noutati: "noutăți după"
+        },
+
+        lungimi: {
+            nume: lungimiColoane.nume || 80,
+            autor: lungimiColoane.autor || 80,
+            cuvantDescriere: 40
+        }
+    };
+}
+
 app.locals.etichetaCategorie = etichetaCategorie;
 app.locals.formatDataRomana = formatDataRomana;
 app.locals.dataPentruDatetime = dataPentruDatetime;
@@ -731,10 +868,12 @@ app.get("/produse", async function(req, res){
         querySql += " ORDER BY id";
 
         let rezultat = await obGlobal.pool.query(querySql, valoriQuery);
+        let dateFiltre = await obtineDateFiltreProduse(categorie);
 
         res.render("pagini/produse", {
             produse: rezultat.rows,
-            categorieSelectata: categorie
+            categorieSelectata: categorie,
+            filtre: dateFiltre
         });
     }
     catch(err){

@@ -27,28 +27,18 @@
         </section>
 
         <% 
-            let preturi = produse.map(function(carte){
-                return Number(carte.pret);
-            });
+            let pretMin = Number(filtre?.pret?.min ?? 0);
+            let pretMax = Number(filtre?.pret?.max ?? 100);
 
-            let pretMin = preturi.length ? Math.floor(Math.min(...preturi)) : 0;
-            let pretMax = preturi.length ? Math.ceil(Math.max(...preturi)) : 100;
+            let autori = filtre?.autori || [];
+            let formate = filtre?.formate || [];
+            let limbi = filtre?.limbi || [];
+            let teme = filtre?.teme || [];
 
-            let autori = [...new Set(produse.map(function(carte){
-                return carte.autor;
-            }).filter(Boolean))].sort();
+            let eticheteFiltre = filtre?.etichete || {};
+            let lungimiFiltre = filtre?.lungimi || {};
 
-            let formate = [...new Set(produse.map(function(carte){
-                return carte.format;
-            }).filter(Boolean))].sort();
-
-            let limbi = [...new Set(produse.map(function(carte){
-                return carte.limba;
-            }).filter(Boolean))].sort();
-
-            let teme = [...new Set(produse.flatMap(function(carte){
-                return carte.teme || [];
-            }))].sort();
+            let dataNoutati = filtre?.noutati?.data || "2024-05-01";
         %>
 
         <section class="zona filtre-produse" id="sectiune-filtre-produse">
@@ -64,10 +54,14 @@
                         <textarea
                             class="form-control form-control-lg"
                             id="filtru-nume-start"
+                            maxlength="<%= lungimiFiltre.nume || 80 %>"
                             placeholder="ex: Misterul"
+                            data-coloana="nume"
                             style="height: 5.5rem"></textarea>
 
-                        <label for="filtru-nume-start">Numele începe cu</label>
+                        <label for="filtru-nume-start">
+                            <%= eticheteFiltre.nume || "Numele începe cu" %>
+                        </label>
 
                         <div class="invalid-feedback">
                             Introdu doar litere, spații, apostrof sau cratimă.
@@ -77,26 +71,30 @@
 
                 <div class="col-12 col-md-6 col-xl-3">
                     <label for="filtru-cuvant-descriere" class="form-label fw-bold">
-                        Cuvânt în descriere
+                        <%= eticheteFiltre.descriere || "Cuvânt în descriere" %>
                     </label>
 
                     <input
                         type="text"
                         class="form-control form-control-lg"
                         id="filtru-cuvant-descriere"
+                        maxlength="<%= lungimiFiltre.cuvantDescriere || 40 %>"
+                        data-coloana="descriere"
                         placeholder="ex: bibliotecă">
                 </div>
 
                 <div class="col-12 col-md-6 col-xl-3">
                     <label for="filtru-autor" class="form-label fw-bold">
-                        Autor
+                        <%= eticheteFiltre.autor || "Autor" %>
                     </label>
 
                     <input
                         type="text"
                         class="form-control form-control-lg"
                         id="filtru-autor"
+                        maxlength="<%= lungimiFiltre.autor || 80 %>"
                         list="lista-autori"
+                        data-coloana="autor"
                         placeholder="alege sau scrie autorul">
 
                     <datalist id="lista-autori">
@@ -108,7 +106,7 @@
 
                 <div class="col-12 col-md-6 col-xl-3">
                     <label for="filtru-limba" class="form-label fw-bold">
-                        Limbă
+                        <%= eticheteFiltre.limba || "Limbă" %>
                     </label>
 
                     <select id="filtru-limba" class="form-select form-select-lg">
@@ -124,7 +122,7 @@
 
                 <div class="col-12 col-lg-6">
                     <label for="filtru-pret" class="form-label fw-bold">
-                        Preț maxim
+                        <%= eticheteFiltre.pret || "Preț" %> maxim
                     </label>
 
                     <div class="d-flex align-items-center gap-2 linie-range">
@@ -136,7 +134,8 @@
                             id="filtru-pret"
                             min="<%= pretMin %>"
                             max="<%= pretMax %>"
-                            value="<%= pretMax %>">
+                            value="<%= pretMax %>"
+                            data-coloana="pret">
 
                         <span>
                             <%= pretMax %>
@@ -147,7 +146,7 @@
 
                 <fieldset class="col-12 col-lg-6">
                     <legend class="form-label fw-bold mb-2">
-                        Format carte
+                        <%= eticheteFiltre.format || "Format carte" %>
                     </legend>
 
                     <div class="btn-group flex-wrap gap-2" role="group" aria-label="Filtru format carte">
@@ -188,17 +187,21 @@
                             class="form-check-input"
                             type="checkbox"
                             role="switch"
-                            id="filtru-noutati">
+                            id="filtru-noutati"
+                            data-limita-noutati="<%= dataNoutati %>">
 
                         <label class="form-check-label fw-bold" for="filtru-noutati">
-                            noutăți
+                            <%= eticheteFiltre.noutati || "noutăți după" %>
+                            <time datetime="<%= dataNoutati %>">
+                                <%= formatDataRomana(dataNoutati) %>
+                            </time>
                         </label>
                     </div>
                 </div>
 
                 <div class="col-12 col-md-6 col-xl-5">
                     <label for="filtru-teme" class="form-label fw-bold">
-                        Teme
+                        <%= eticheteFiltre.teme || "Teme" %>
                     </label>
 
                     <select id="filtru-teme" class="form-select" multiple size="5">
