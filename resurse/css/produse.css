@@ -247,3 +247,30 @@
         flex-direction: column;
     }
 }
+
+.input-invalid{
+    border-color: #b00020 !important;
+    outline: 0.15rem solid rgba(176, 0, 32, 0.35);
+}
+
+.rezultat-calcul-produse{
+    position: fixed;
+    left: 50%;
+    bottom: 2rem;
+    z-index: 9999;
+
+    transform: translateX(-50%);
+
+    max-width: min(90%, 32rem);
+    padding: 1rem 1.4rem;
+
+    background-color: var(--culoare-accent);
+    color: var(--culoare-deschisa);
+
+    border: 0.12rem solid var(--culoare-contur);
+    border-radius: 0.9rem;
+
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.25);
+    text-align: center;
+    font-weight: 700;
+}

@@ -158,6 +158,22 @@
             </div>
 
             <div class="butoane-filtrare">
+                <button type="button" id="buton-filtreaza">
+                    filtreaza
+                </button>
+
+                <button type="button" id="sortare-crescatoare">
+                    Sortează crescător
+                </button>
+
+                <button type="button" id="sortare-descrescatoare">
+                    Sortează descrescător
+                </button>
+
+                <button type="button" id="calculeaza-preturi">
+                    Calculează media prețurilor
+                </button>
+
                 <button type="button" id="resetare-filtre">
                     Resetează filtrele
                 </button>
@@ -178,6 +194,7 @@
                     data-descriere="<%= (carte.descriere || '').toLowerCase() %>"
                     data-autor="<%= (carte.autor || '').toLowerCase() %>"
                     data-pret="<%= Number(carte.pret) %>"
+                    data-pagini="<%= Number(carte.numar_pagini) %>"
                     data-format="<%= carte.format %>"
                     data-limba="<%= carte.limba %>"
                     data-teme="<%= carte.teme ? carte.teme.join('|').toLowerCase() : '' %>"

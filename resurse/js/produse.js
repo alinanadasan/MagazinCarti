@@ -9,10 +9,18 @@ window.addEventListener("DOMContentLoaded", function(){
     const checkboxNoutati = document.getElementById("filtru-noutati");
     const selectLimba = document.getElementById("filtru-limba");
     const selectTeme = document.getElementById("filtru-teme");
-    const butonResetare = document.getElementById("resetare-filtre");
-    const spanNumarProduse = document.getElementById("numar-produse-afisate");
 
-    const articoleProduse = document.querySelectorAll(".produs-card");
+    const butonFiltreaza = document.getElementById("buton-filtreaza");
+    const butonSortareCrescatoare = document.getElementById("sortare-crescatoare");
+    const butonSortareDescrescatoare = document.getElementById("sortare-descrescatoare");
+    const butonCalculeaza = document.getElementById("calculeaza-preturi");
+    const butonResetare = document.getElementById("resetare-filtre");
+
+    const spanNumarProduse = document.getElementById("numar-produse-afisate");
+    const listaProduse = document.getElementById("lista-produse");
+
+    const articoleProduse = Array.from(document.querySelectorAll(".produs-card"));
+    const ordineInitiala = Array.from(articoleProduse);
 
     function normalizeazaText(text){
         return (text || "")
@@ -20,6 +28,60 @@ window.addEventListener("DOMContentLoaded", function(){
             .toLowerCase()
             .normalize("NFD")
             .replace(/[\u0300-\u036f]/g, "");
+    }
+
+    function curataEroriValidare(){
+        textareaNume.classList.remove("input-invalid");
+        inputDescriere.classList.remove("input-invalid");
+        inputAutor.classList.remove("input-invalid");
+    }
+
+    function textEsteValid(text){
+        if (!text){
+            return true;
+        }
+
+        return /^[a-zA-ZăâîșțĂÂÎȘȚ\s\-']+$/.test(text);
+    }
+
+    function cuvantEsteValid(text){
+        if (!text){
+            return true;
+        }
+
+        return /^[a-zA-ZăâîșțĂÂÎȘȚ\-']+$/.test(text);
+    }
+
+    function valideazaInputuri(){
+        curataEroriValidare();
+
+        let mesaje = [];
+
+        let nume = textareaNume.value.trim();
+        let cuvantDescriere = inputDescriere.value.trim();
+        let autor = inputAutor.value.trim();
+
+        if (!textEsteValid(nume)){
+            mesaje.push("Câmpul pentru nume poate conține doar litere, spații, apostrof sau cratimă.");
+            textareaNume.classList.add("input-invalid");
+        }
+
+        if (!cuvantEsteValid(cuvantDescriere)){
+            mesaje.push("Cuvântul din descriere trebuie să conțină doar litere, fără cifre sau spații.");
+            inputDescriere.classList.add("input-invalid");
+        }
+
+        if (!textEsteValid(autor)){
+            mesaje.push("Autorul poate conține doar litere, spații, apostrof sau cratimă.");
+            inputAutor.classList.add("input-invalid");
+        }
+
+        if (mesaje.length > 0){
+            alert(mesaje.join("\n"));
+            return false;
+        }
+
+        return true;
     }
 
     function obtineFormatSelectat(){
@@ -38,7 +100,23 @@ window.addEventListener("DOMContentLoaded", function(){
         });
     }
 
+    function actualizeazaNumarProduse(){
+        let numarAfisate = 0;
+
+        for (let articol of articoleProduse){
+            if (!articol.classList.contains("ascuns-filtrare")){
+                numarAfisate++;
+            }
+        }
+
+        spanNumarProduse.textContent = numarAfisate;
+    }
+
     function filtreazaProduse(){
+        if (!valideazaInputuri()){
+            return;
+        }
+
         const numeCautat = normalizeazaText(textareaNume.value.trim());
         const cuvantDescriere = normalizeazaText(inputDescriere.value.trim());
         const autorCautat = normalizeazaText(inputAutor.value.trim());
@@ -49,8 +127,6 @@ window.addEventListener("DOMContentLoaded", function(){
         const temeSelectate = obtineTemeSelectate();
 
         let numarAfisate = 0;
-
-        valoarePret.textContent = rangePret.value;
 
         for (let articol of articoleProduse){
             let ok = true;
@@ -118,11 +194,93 @@ window.addEventListener("DOMContentLoaded", function(){
         spanNumarProduse.textContent = numarAfisate;
     }
 
+    function raportPaginiPret(articol){
+        let pagini = Number(articol.dataset.pagini);
+        let pret = Number(articol.dataset.pret);
+
+        if (!pret){
+            return 0;
+        }
+
+        return pagini / pret;
+    }
+
+    function sorteazaProduse(crescator){
+        if (!valideazaInputuri()){
+            return;
+        }
+
+        let articoleSortate = Array.from(articoleProduse);
+
+        articoleSortate.sort(function(a, b){
+            let numeA = normalizeazaText(a.dataset.nume);
+            let numeB = normalizeazaText(b.dataset.nume);
+
+            let comparatieNume = numeA.localeCompare(numeB, "ro");
+
+            if (comparatieNume !== 0){
+                return crescator ? comparatieNume : -comparatieNume;
+            }
+
+            let raportA = raportPaginiPret(a);
+            let raportB = raportPaginiPret(b);
+
+            return crescator ? raportA - raportB : raportB - raportA;
+        });
+
+        for (let articol of articoleSortate){
+            listaProduse.appendChild(articol);
+        }
+    }
+
+    function calculeazaMediaPreturilor(){
+        if (!valideazaInputuri()){
+            return;
+        }
+
+        let produseVizibile = articoleProduse.filter(function(articol){
+            return !articol.classList.contains("ascuns-filtrare");
+        });
+
+        let divCalcul = document.createElement("div");
+        divCalcul.className = "rezultat-calcul-produse";
+
+        if (produseVizibile.length === 0){
+            divCalcul.textContent = "Nu există produse afișate pentru calcul.";
+        }
+        else{
+            let suma = 0;
+
+            for (let articol of produseVizibile){
+                suma += Number(articol.dataset.pret);
+            }
+
+            let media = suma / produseVizibile.length;
+
+            divCalcul.textContent = `Media prețurilor produselor afișate este ${media.toFixed(2)} RON.`;
+        }
+
+        document.body.appendChild(divCalcul);
+
+        setTimeout(function(){
+            divCalcul.remove();
+        }, 2000);
+    }
+
     function reseteazaFiltre(){
+        let confirmaResetare = confirm("Sigur vrei să resetezi toate filtrele și sortarea?");
+
+        if (!confirmaResetare){
+            return;
+        }
+
+        curataEroriValidare();
+
         textareaNume.value = "";
         inputDescriere.value = "";
         inputAutor.value = "";
         rangePret.value = rangePret.max;
+        valoarePret.textContent = rangePret.value;
         checkboxNoutati.checked = false;
         selectLimba.value = "";
 
@@ -136,23 +294,35 @@ window.addEventListener("DOMContentLoaded", function(){
             radioOriceFormat.checked = true;
         }
 
-        filtreazaProduse();
+        for (let articol of articoleProduse){
+            articol.classList.remove("ascuns-filtrare");
+        }
+
+        for (let articol of ordineInitiala){
+            listaProduse.appendChild(articol);
+        }
+
+        actualizeazaNumarProduse();
     }
 
-    textareaNume.addEventListener("input", filtreazaProduse);
-    inputDescriere.addEventListener("input", filtreazaProduse);
-    inputAutor.addEventListener("input", filtreazaProduse);
-    rangePret.addEventListener("input", filtreazaProduse);
-    checkboxNoutati.addEventListener("change", filtreazaProduse);
-    selectLimba.addEventListener("change", filtreazaProduse);
-    selectTeme.addEventListener("change", filtreazaProduse);
+    rangePret.addEventListener("input", function(){
+        valoarePret.textContent = rangePret.value;
+    });
+
+    butonFiltreaza.addEventListener("click", filtreazaProduse);
+
+    butonSortareCrescatoare.addEventListener("click", function(){
+        sorteazaProduse(true);
+    });
+
+    butonSortareDescrescatoare.addEventListener("click", function(){
+        sorteazaProduse(false);
+    });
+
+    butonCalculeaza.addEventListener("click", calculeazaMediaPreturilor);
+
     butonResetare.addEventListener("click", reseteazaFiltre);
 
-    const radioFormat = document.querySelectorAll('input[name="filtru-format"]');
-
-    for (let radio of radioFormat){
-        radio.addEventListener("change", filtreazaProduse);
-    }
-
-    filtreazaProduse();
+    valoarePret.textContent = rangePret.value;
+    actualizeazaNumarProduse();
 });
