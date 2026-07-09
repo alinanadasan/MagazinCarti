@@ -58,82 +58,60 @@
                 Completează filtrele de mai jos pentru a afișa doar cărțile care corespund criteriilor alese.
             </p>
 
-            <div class="campuri-filtrare">
-                <label for="filtru-nume-start">
-                    Numele începe cu:
-                    <textarea
-                        id="filtru-nume-start"
-                        rows="2"
-                        placeholder="ex: Misterul"></textarea>
-                </label>
+            <div class="row g-3 align-items-start campuri-filtrare">
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="form-floating">
+                        <textarea
+                            class="form-control form-control-lg"
+                            id="filtru-nume-start"
+                            placeholder="ex: Misterul"
+                            style="height: 5.5rem"></textarea>
 
-                <label for="filtru-cuvant-descriere">
-                    Cuvânt în descriere:
-                    <input
-                        type="text"
-                        id="filtru-cuvant-descriere"
-                        placeholder="ex: bibliotecă">
-                </label>
+                        <label for="filtru-nume-start">Numele începe cu</label>
 
-                <label for="filtru-autor">
-                    Autor:
-                    <input
-                        type="text"
-                        id="filtru-autor"
-                        list="lista-autori"
-                        placeholder="alege sau scrie autorul">
-                </label>
-
-                <datalist id="lista-autori">
-                    <% for (let autor of autori) { %>
-                        <option value="<%= autor %>"></option>
-                    <% } %>
-                </datalist>
-
-                <div class="camp-range">
-                    <label for="filtru-pret">
-                        Preț maxim:
-                        <span id="valoare-pret-selectat"><%= pretMax %></span> RON
-                    </label>
-
-                    <div class="linie-range">
-                        <span><%= pretMin %></span>
-
-                        <input
-                            type="range"
-                            id="filtru-pret"
-                            min="<%= pretMin %>"
-                            max="<%= pretMax %>"
-                            value="<%= pretMax %>">
-
-                        <span><%= pretMax %></span>
+                        <div class="invalid-feedback">
+                            Introdu doar litere, spații, apostrof sau cratimă.
+                        </div>
                     </div>
                 </div>
 
-                <fieldset class="grup-radio-filtru">
-                    <legend>Format carte</legend>
-
-                    <label>
-                        <input type="radio" name="filtru-format" value="" checked>
-                        Orice format
+                <div class="col-12 col-md-6 col-xl-3">
+                    <label for="filtru-cuvant-descriere" class="form-label fw-bold">
+                        Cuvânt în descriere
                     </label>
 
-                    <% for (let format of formate) { %>
-                        <label>
-                            <input type="radio" name="filtru-format" value="<%= format %>">
-                            <%= etichetaCategorie(format) %>
-                        </label>
-                    <% } %>
-                </fieldset>
+                    <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        id="filtru-cuvant-descriere"
+                        placeholder="ex: bibliotecă">
+                </div>
 
-                <label class="camp-checkbox-noutati" for="filtru-noutati">
-                    <input type="checkbox" id="filtru-noutati">
-                    noutăți
-                </label>
+                <div class="col-12 col-md-6 col-xl-3">
+                    <label for="filtru-autor" class="form-label fw-bold">
+                        Autor
+                    </label>
 
-                <label for="filtru-limba">
-                    Limbă:
-                    <select id="filtru-limba">
+                    <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        id="filtru-autor"
+                        list="lista-autori"
+                        placeholder="alege sau scrie autorul">
+
+                    <datalist id="lista-autori">
+                        <% for (let autor of autori) { %>
+                            <option value="<%= autor %>"></option>
+                        <% } %>
+                    </datalist>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <label for="filtru-limba" class="form-label fw-bold">
+                        Limbă
+                    </label>
+
+                    <select id="filtru-limba" class="form-select form-select-lg">
                         <option value="">Oricare</option>
 
                         <% for (let limba of limbi) { %>
@@ -142,43 +120,126 @@
                             </option>
                         <% } %>
                     </select>
-                </label>
+                </div>
 
-                <label for="filtru-teme">
-                    Teme:
-                    <select id="filtru-teme" multiple size="5">
+                <div class="col-12 col-lg-6">
+                    <label for="filtru-pret" class="form-label fw-bold">
+                        Preț maxim
+                    </label>
+
+                    <div class="d-flex align-items-center gap-2 linie-range">
+                        <span><%= pretMin %></span>
+
+                        <input
+                            type="range"
+                            class="form-range flex-grow-1"
+                            id="filtru-pret"
+                            min="<%= pretMin %>"
+                            max="<%= pretMax %>"
+                            value="<%= pretMax %>">
+
+                        <span>
+                            <%= pretMax %>
+                            (<span id="valoare-pret-selectat"><%= pretMax %></span> RON)
+                        </span>
+                    </div>
+                </div>
+
+                <fieldset class="col-12 col-lg-6">
+                    <legend class="form-label fw-bold mb-2">
+                        Format carte
+                    </legend>
+
+                    <div class="btn-group flex-wrap gap-2" role="group" aria-label="Filtru format carte">
+                        <input
+                            type="radio"
+                            class="btn-check"
+                            name="filtru-format"
+                            id="format-orice"
+                            value=""
+                            autocomplete="off"
+                            checked>
+
+                        <label class="btn btn-outline-primary btn-sm" for="format-orice">
+                            Orice format
+                        </label>
+
+                        <% for (let format of formate) { %>
+                            <% let idFormat = "format-" + format.replace(/[^a-zA-Z0-9_-]/g, "-"); %>
+
+                            <input
+                                type="radio"
+                                class="btn-check"
+                                name="filtru-format"
+                                id="<%= idFormat %>"
+                                value="<%= format %>"
+                                autocomplete="off">
+
+                            <label class="btn btn-outline-primary btn-sm" for="<%= idFormat %>">
+                                <%= etichetaCategorie(format) %>
+                            </label>
+                        <% } %>
+                    </div>
+                </fieldset>
+
+                <div class="col-12 col-md-6 col-xl-3">
+                    <div class="form-check form-switch mt-md-4">
+                        <input
+                            class="form-check-input"
+                            type="checkbox"
+                            role="switch"
+                            id="filtru-noutati">
+
+                        <label class="form-check-label fw-bold" for="filtru-noutati">
+                            noutăți
+                        </label>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-6 col-xl-5">
+                    <label for="filtru-teme" class="form-label fw-bold">
+                        Teme
+                    </label>
+
+                    <select id="filtru-teme" class="form-select" multiple size="5">
                         <% for (let tema of teme) { %>
                             <option value="<%= tema %>"><%= tema %></option>
                         <% } %>
                     </select>
-                    <span class="indiciu-select-multiplu">
+
+                    <div class="form-text">
                         Ține apăsat Ctrl pentru mai multe opțiuni.
-                    </span>
-                </label>
+                    </div>
+                </div>
             </div>
 
-            <div class="butoane-filtrare">
-                <button type="button" id="buton-filtreaza">
-                    filtreaza
+            <div class="butoane-filtrare d-flex flex-wrap gap-2 align-items-center mt-4">
+                <button type="button" id="buton-filtreaza" class="btn btn-primary btn-lg">
+                    <i class="bi bi-funnel-fill" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline ms-1">filtreaza</span>
                 </button>
 
-                <button type="button" id="sortare-crescatoare">
-                    Sortează crescător
+                <button type="button" id="sortare-crescatoare" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-sort-alpha-down" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline ms-1">Sortează crescător</span>
                 </button>
 
-                <button type="button" id="sortare-descrescatoare">
-                    Sortează descrescător
+                <button type="button" id="sortare-descrescatoare" class="btn btn-secondary btn-lg">
+                    <i class="bi bi-sort-alpha-up-alt" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline ms-1">Sortează descrescător</span>
                 </button>
 
-                <button type="button" id="calculeaza-preturi">
-                    Calculează media prețurilor
+                <button type="button" id="calculeaza-preturi" class="btn btn-success btn-lg">
+                    <i class="bi bi-calculator-fill" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline ms-1">Calculează media</span>
                 </button>
 
-                <button type="button" id="resetare-filtre">
-                    Resetează filtrele
+                <button type="button" id="resetare-filtre" class="btn btn-outline-danger btn-lg">
+                    <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+                    <span class="d-none d-sm-inline ms-1">Resetează filtrele</span>
                 </button>
 
-                <p id="mesaj-produse-afisate">
+                <p id="mesaj-produse-afisate" class="mb-0 ms-sm-2 fw-bold text-primary">
                     Se afișează <span id="numar-produse-afisate"><%= produse.length %></span>
                     din <%= produse.length %> produse.
                 </p>

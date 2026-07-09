@@ -11,110 +11,27 @@
     margin-bottom: var(--gap-grid);
 }
 
-.campuri-filtrare{
-    display: grid;
-    grid-template-columns: repeat(4, minmax(12rem, 1fr));
-    gap: 1rem;
-    align-items: start;
-}
-
-.campuri-filtrare label,
-.camp-range,
-.grup-radio-filtru{
-    display: flex;
-    flex-direction: column;
-    gap: 0.35rem;
-    font-weight: 700;
+.filtre-produse .form-label,
+.filtre-produse legend,
+.filtre-produse .form-check-label{
     color: var(--culoare-accent);
 }
 
-.campuri-filtrare input,
-.campuri-filtrare textarea,
-.campuri-filtrare select{
-    width: 100%;
-    padding: 0.55rem 0.7rem;
-    border: 0.08rem solid var(--culoare-contur);
-    border-radius: 0.6rem;
-    background-color: var(--culoare-deschisa);
-    color: var(--culoare-text);
-    font: inherit;
-}
-
-.campuri-filtrare textarea{
-    resize: vertical;
-    min-height: 4rem;
-}
-
-.linie-range{
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    gap: 0.6rem;
+.filtre-produse .btn-group{
     align-items: center;
-    font-weight: 400;
+}
+
+.linie-range span{
     color: var(--culoare-text);
-}
-
-.linie-range input[type="range"]{
-    padding: 0;
-}
-
-.grup-radio-filtru{
-    border: 0.08rem solid var(--culoare-contur);
-    border-radius: 0.7rem;
-    padding: 0.75rem;
-    background-color: var(--culoare-suprafata);
-}
-
-.grup-radio-filtru legend{
-    padding: 0 0.35rem;
-    color: var(--culoare-accent);
     font-weight: 700;
+    white-space: nowrap;
 }
 
-.grup-radio-filtru label,
-.camp-checkbox-noutati{
-    flex-direction: row;
-    align-items: center;
-    font-weight: 400;
-    color: var(--culoare-text);
-}
-
-.grup-radio-filtru input,
-.camp-checkbox-noutati input{
-    width: auto;
-}
-
-.indiciu-select-multiplu{
-    font-size: 0.85rem;
-    font-weight: 400;
-    color: var(--culoare-text);
-}
-
-.butoane-filtrare{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1rem;
-    align-items: center;
-    margin-top: 1.2rem;
-}
-
-#resetare-filtre{
-    padding: 0.6rem 1rem;
-    border: 0;
-    border-radius: 0.7rem;
-    background-color: var(--culoare-accent);
-    color: var(--culoare-deschisa);
-    font-weight: 700;
-    cursor: pointer;
-}
-
-#resetare-filtre:hover{
-    background-color: var(--culoare-principala);
+.butoane-filtrare .btn{
+    white-space: nowrap;
 }
 
 #mesaj-produse-afisate{
-    margin: 0;
-    font-weight: 700;
     color: var(--culoare-accent);
 }
 
@@ -226,17 +143,12 @@
 }
 
 @media screen and (max-width: 1350px){
-    .campuri-filtrare{
-        grid-template-columns: repeat(2, minmax(12rem, 1fr));
-    }
-
     .grid-produse{
         grid-template-columns: 1fr;
     }
 }
 
 @media screen and (max-width: 768px){
-    .campuri-filtrare,
     .continut-produs,
     .continut-produs-unic{
         grid-template-columns: 1fr;
@@ -244,13 +156,16 @@
 
     .butoane-filtrare{
         align-items: flex-start;
-        flex-direction: column;
     }
 }
 
 .input-invalid{
-    border-color: #b00020 !important;
-    outline: 0.15rem solid rgba(176, 0, 32, 0.35);
+    border-color: var(--bs-danger) !important;
+    box-shadow: 0 0 0 0.25rem rgba(168, 67, 63, 0.25) !important;
+}
+
+.form-floating > .form-control.is-invalid ~ label{
+    color: var(--bs-danger);
 }
 
 .rezultat-calcul-produse{

@@ -31,9 +31,9 @@ window.addEventListener("DOMContentLoaded", function(){
     }
 
     function curataEroriValidare(){
-        textareaNume.classList.remove("input-invalid");
-        inputDescriere.classList.remove("input-invalid");
-        inputAutor.classList.remove("input-invalid");
+        textareaNume.classList.remove("input-invalid", "is-invalid");
+        inputDescriere.classList.remove("input-invalid", "is-invalid");
+        inputAutor.classList.remove("input-invalid", "is-invalid");
     }
 
     function textEsteValid(text){
@@ -63,12 +63,12 @@ window.addEventListener("DOMContentLoaded", function(){
 
         if (!textEsteValid(nume)){
             mesaje.push("Câmpul pentru nume poate conține doar litere, spații, apostrof sau cratimă.");
-            textareaNume.classList.add("input-invalid");
+            textareaNume.classList.add("input-invalid", "is-invalid");
         }
 
         if (!cuvantEsteValid(cuvantDescriere)){
             mesaje.push("Cuvântul din descriere trebuie să conțină doar litere, fără cifre sau spații.");
-            inputDescriere.classList.add("input-invalid");
+            inputDescriere.classList.add("input-invalid", "is-invalid");
         }
 
         if (!textEsteValid(autor)){
@@ -83,7 +83,19 @@ window.addEventListener("DOMContentLoaded", function(){
 
         return true;
     }
+    function corecteazaValidareLive(){
+        if (textEsteValid(textareaNume.value.trim())){
+            textareaNume.classList.remove("input-invalid", "is-invalid");
+        }
 
+        if (cuvantEsteValid(inputDescriere.value.trim())){
+            inputDescriere.classList.remove("input-invalid", "is-invalid");
+        }
+
+        if (textEsteValid(inputAutor.value.trim())){
+            inputAutor.classList.remove("input-invalid", "is-invalid");
+        }
+    }
     function obtineFormatSelectat(){
         const radioSelectat = document.querySelector('input[name="filtru-format"]:checked');
 
@@ -304,6 +316,10 @@ window.addEventListener("DOMContentLoaded", function(){
 
         actualizeazaNumarProduse();
     }
+    
+    textareaNume.addEventListener("input", corecteazaValidareLive);
+    inputDescriere.addEventListener("input", corecteazaValidareLive);
+    inputAutor.addEventListener("input", corecteazaValidareLive);
 
     rangePret.addEventListener("input", function(){
         valoarePret.textContent = rangePret.value;

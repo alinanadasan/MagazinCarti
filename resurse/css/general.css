@@ -915,3 +915,29 @@ time{
         padding: 0.35rem 0.55rem;
     }
 }
+
+.comutator-tema-bootstrap{
+    margin-top: 1rem;
+    max-width: max-content;
+}
+
+.comutator-tema-bootstrap .form-check-label{
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    color: var(--culoare-deschisa);
+    font-weight: 700;
+}
+
+body.tema-inchisa{
+    --culoare-fundal: #1f1712;
+    --culoare-suprafata: #2c211b;
+    --culoare-principala: #f0b64d;
+    --culoare-accent: #d69b5c;
+    --culoare-inchisa: #fff8ee;
+    --culoare-deschisa: #2c211b;
+    --culoare-secundara: #9caf74;
+    --culoare-text: #fff8ee;
+    --culoare-contur: #8f684e;
+    --culoare-highlight: #3a2a21;
+}

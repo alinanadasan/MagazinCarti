@@ -4,6 +4,7 @@ $culoare-deschisa: #fff8ee;
 $culoare-inchisa: #261b16;
 $culoare-verde: #6f7d43;
 $culoare-crem: #fff0d6;
+$culoare-range-track: #e3c7a6;
 
 @use "../../node_modules/bootstrap/scss/bootstrap.scss" with (
     $primary: $culoare-principala,
@@ -25,11 +26,37 @@ $culoare-crem: #fff0d6;
     $h2-font-size: 2.25rem,
     $h3-font-size: 1.75rem,
 
+    $border-width: 0.12rem,
     $border-radius: 1rem,
     $border-radius-sm: 0.5rem,
     $border-radius-lg: 1.5rem,
 
+    $btn-border-width: 0.12rem,
     $btn-border-radius: 1rem,
+    $btn-border-radius-sm: 0.7rem,
+    $btn-border-radius-lg: 1.25rem,
+
+    $input-border-width: 0.12rem,
+    $input-border-radius: 1rem,
+    $input-border-radius-sm: 0.7rem,
+    $input-border-radius-lg: 1.25rem,
+
+    $form-select-border-radius: 1rem,
+    $form-select-border-width: 0.12rem,
+
+    $form-range-track-height: 0.55rem,
+    $form-range-track-bg: $culoare-range-track,
+    $form-range-track-border-radius: 1rem,
+    $form-range-thumb-width: 1.5rem,
+    $form-range-thumb-height: 1.5rem,
+    $form-range-thumb-bg: $culoare-principala,
+    $form-range-thumb-active-bg: $culoare-secundara,
+    $form-range-thumb-focus-box-shadow: 0 0 0 0.25rem rgba(123, 75, 42, 0.25),
+
+    $form-check-input-checked-bg-color: $culoare-principala,
+    $form-check-input-checked-border-color: $culoare-principala,
+    $form-switch-width: 3em,
+
     $card-border-radius: 1.25rem,
     $box-shadow: 0 0.5rem 1.2rem rgba(38, 27, 22, 0.18),
     $link-color: $culoare-principala,
